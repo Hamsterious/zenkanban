@@ -13,13 +13,13 @@ export class BoardService implements IBoardService {
   getAll(): Board[] {
     throw new Error('Method not implemented.');
   }
-  get(id: any): Board {
+  get(id: number): Board {
     throw new Error('Method not implemented.');
   }
-  update(id: any): void {
+  update(id: number): void {
     throw new Error('Method not implemented.');
   }
-  delete(id: any): void {
+  delete(id: number): void {
     throw new Error('Method not implemented.');
   }
 }
