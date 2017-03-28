@@ -1,25 +1,37 @@
 import { Injectable } from '@angular/core';
+import { Http } from "@angular/http";
+
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
+
 import { IBoardService } from "app/services/Iboardservice";
 import { Board } from "app/components/board/board";
 
 @Injectable()
 export class BoardService implements IBoardService {
 
-  constructor() { }
+  private boardsUrl : string = "http://localhost:3000/boards";
 
-  create(board: Board): void {
+  constructor(private http: Http) { }
+
+  public create(board: Board): void {
     throw new Error('Method not implemented.');
   }
-  getAll(): Board[] {
+f
+  public getAll(): Board[] {
+    let result : Board[];
+
+    this.http.get(this.boardsUrl).map(response => response.json()).subscribe(x => {result = x;});
+
+   return result;
+  }
+  public get(id: number): Board {
     throw new Error('Method not implemented.');
   }
-  get(id: number): Board {
+  public update(id: number): void {
     throw new Error('Method not implemented.');
   }
-  update(id: number): void {
-    throw new Error('Method not implemented.');
-  }
-  delete(id: number): void {
+  public delete(id: number): void {
     throw new Error('Method not implemented.');
   }
 }
