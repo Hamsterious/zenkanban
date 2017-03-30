@@ -16,7 +16,7 @@ export class BoardComponent implements OnInit {
   constructor(private boardService: BoardService) { }
 
   ngOnInit() {
-    this.boards = this.boardService.getAll();
+    this.boardService.getAll().subscribe(x => this.boards = x);
   }
   
   onSubmit() {  }

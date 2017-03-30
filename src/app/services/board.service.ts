@@ -18,14 +18,10 @@ export class BoardService implements IBoardService {
     throw new Error('Method not implemented.');
   }
 f
-  public getAll(): Board[] {
-    let result : Board[];
-
-    this.http.get(this.boardsUrl).map(response => response.json()).subscribe(x => {result = x;});
-
-   return result;
+  public getAll(): Observable<Board[]> {
+    return this.http.get(this.boardsUrl).map(response => response.json());
   }
-  public get(id: number): Board {
+  public get(id: number): Observable<Board> {
     throw new Error('Method not implemented.');
   }
   public update(id: number): void {

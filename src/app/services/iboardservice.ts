@@ -1,9 +1,10 @@
 import { Board } from "app/components/board/board";
+import { Observable } from "rxjs/Observable";
 
 export interface IBoardService {
     create(board: Board) : void;
-    getAll() : Board[];
-    get(id: number) : Board;
+    getAll() : Observable<Board[]>;
+    get(id: number) : Observable<Board>;
     update(id: number) : void;
     delete(id: number) : void;
 }
