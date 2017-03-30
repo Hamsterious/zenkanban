@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BoardService } from "app/services/board.service";
 import { Board } from "app/components/board/board";
 
-
 @Component({
   selector: 'board',
   templateUrl: './board.component.html',
@@ -13,12 +12,20 @@ export class BoardComponent implements OnInit {
 
   public boards : {};
 
-  constructor(private boardService: BoardService) { }
-
+  constructor(
+    private boardService: BoardService
+  ){}
   ngOnInit() {
-    this.boardService.getAll().subscribe(x => this.boards = x);
+    this.getBoards();
   }
   
+  private getBoards(){
+    this.boardService.getAll().subscribe(
+      x => this.boards = x,
+      error => error = <any>error
+    );
+  }
+
   onSubmit() {  }
 
 }
