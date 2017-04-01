@@ -1,3 +1,10 @@
 <ul>
-    <li *ngFor="let board of boards">Id: {{board._id}}, Title: {{board.title}}</li>
+    <li *ngFor="let board of boards">
+        <a href="#{{board._id}}" (click)="getBoard(board._id)">Title: {{ board.title }}</a>
+    </li>
 </ul>
+
+<div *ngIf="selectedBoard === undefined; else boardDetails">No board selected</div>
+<ng-template #boardDetails>
+    {{ selectedBoard.title }}
+</ng-template>

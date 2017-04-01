@@ -16,6 +16,7 @@ export class BoardComponent implements OnInit {
 
     // Properties
     public boards : Board[];
+    public selectedBoard: Board;
 
     // Constructor
     constructor(
@@ -28,9 +29,19 @@ export class BoardComponent implements OnInit {
     }
 
     // Methods
-    private getBoards(){
+    private getBoards(): void {
         this.boardService.getAll().subscribe(
             x => this.boards = x,
+            error => error = <any>error
+        );
+    }
+
+    private getBoard(id: string): void {
+        this.boardService.get(id).subscribe(
+            x => {
+                this.selectedBoard = x;
+                console.log(this.selectedBoard);
+            },
             error => error = <any>error
         );
     }
