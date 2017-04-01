@@ -21,7 +21,7 @@ export class BoardService implements IBoardService {
     constructor(private http: Http) { }
 
     // Methods
-    public create(board: Board): void {
+    public create(board: Board): Observable<Board> {
         throw new Error('Method not implemented.');
     }
 
@@ -33,7 +33,7 @@ export class BoardService implements IBoardService {
         return this.http.get(this.boardsUrl + "/" + id).map(response => response.json());
     }
 
-    public update(id: string): void {
+    public update(id: string): Observable<Board> {
         throw new Error('Method not implemented.');
     }
 

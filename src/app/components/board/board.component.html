@@ -1,5 +1,5 @@
 <!-- Board list -->
-<div *ngIf="boards; else showBoards">
+<div *ngIf="boards === undefined; else showBoards">
     No boards created</div>
 <ng-template #showBoards>
     <ul>
