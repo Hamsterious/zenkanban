@@ -1,11 +1,15 @@
+// Angular imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// Custom type imports
 import { AppComponent } from './components/app/app.component';
 import { BoardComponent } from './components/board/board.component';
+import { RoutingModule } from "app/routing/routing.module";
 
+// Module meta data
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,9 +18,12 @@ import { BoardComponent } from './components/board/board.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
+// Exports
 export class AppModule { }
