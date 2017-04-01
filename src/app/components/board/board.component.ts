@@ -1,31 +1,40 @@
+// Imports
 import { Component, OnInit } from '@angular/core';
 import { BoardService } from "app/services/board.service";
 import { Board } from "app/components/board/board";
 
+// Component meta data
 @Component({
-  selector: 'board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css'],
-  providers: [BoardService],
+    selector: 'board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.css'],
+    providers: [BoardService],
 })
+
+// Component
 export class BoardComponent implements OnInit {
 
-  public boards : {};
+    // Properties
+    public boards : Board[];
 
-  constructor(
-    private boardService: BoardService
-  ){}
-  ngOnInit() {
-    this.getBoards();
-  }
-  
-  private getBoards(){
-    this.boardService.getAll().subscribe(
-      x => this.boards = x,
-      error => error = <any>error
-    );
-  }
+    // Constructor
+    constructor(
+        private boardService: BoardService
+    ){}
 
-  onSubmit() {  }
+    // Initializing
+    ngOnInit() {
+        this.getBoards();
+    }
+
+    // Methods
+    private getBoards(){
+        this.boardService.getAll().subscribe(
+            x => this.boards = x,
+            error => error = <any>error
+        );
+    }
+
+    public onSubmit() {}
 
 }
