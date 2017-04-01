@@ -54,10 +54,17 @@ export class BoardComponent implements OnInit {
         );
     }
 
-    goToUpdateBoard(): void {
+    private deleteBoard(id: string): void {
+        if (!id) { return; }
+        this.boardService.delete(id).subscribe(
+            x => console.log(x),
+            error => error = <any>error
+        );
+    }
+
+    private goToUpdateBoard(): void {
         this.router.navigate(['/update-board', this.selectedBoard._id]);
     }
 
-    public onSubmit() { }
 
 }

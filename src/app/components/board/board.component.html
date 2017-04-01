@@ -1,5 +1,5 @@
 <!-- Board list -->
-<div *ngIf="boards === undefined; else showBoards">
+<div *ngIf="boards; else showBoards">
     No boards created</div>
 <ng-template #showBoards>
     <ul>
@@ -7,7 +7,9 @@
             {{ board.title }} -
             <a href="#0" (click)="getBoard(board._id)">Details</a> -
             <a [routerLink]="['/update-board', board._id]">Update</a> -
-            <a href="#0" (click)="getBoard(board._id)">Delete</a>
+            <form (ngSubmit)="deleteBoard(board._id)">
+                <input type="submit" value="Delete {{board.title}}">
+            </form>
         </li>
     </ul>
 </ng-template>

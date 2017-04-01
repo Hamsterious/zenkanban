@@ -1,6 +1,6 @@
 // Angular imports
 import { Injectable } from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, Headers, RequestOptions } from "@angular/http";
 
 // Rxjs imports
 import { Observable } from "rxjs/Observable";
@@ -36,8 +36,11 @@ export class BoardService implements IBoardService {
     public update(id: string): void {
         throw new Error('Method not implemented.');
     }
-    
-    public delete(id: string): void {
-        throw new Error('Method not implemented.');
+
+    public delete(id: string): Observable<Board> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(this.boardsUrl + "/delete/" + id, options).map(response => response.json());
     }
 }
