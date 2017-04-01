@@ -1,10 +1,33 @@
-<ul>
-    <li *ngFor="let board of boards">
-        <a href="#{{board._id}}" (click)="getBoard(board._id)">Title: {{ board.title }}</a>
-    </li>
-</ul>
+<!-- Board list -->
+<div *ngIf="boards === undefined; else showBoards">
+    No boards created</div>
+<ng-template #showBoards>
+    <ul>
+        <li *ngFor="let board of boards">
+            {{ board.title }} -
+            <a href="#{{board._id}}" (click)="getBoard(board._id)">Details</a> -
+            <a href="#{{board._id}}" (click)="getBoard(board._id)">Update</a> -
+            <a href="#{{board._id}}" (click)="getBoard(board._id)">Delete</a>
+        </li>
+    </ul>
+</ng-template>
 
-<div *ngIf="selectedBoard === undefined; else boardDetails">No board selected</div>
-<ng-template #boardDetails>
+<!-- Board details -->
+<h2>Board details</h2>
+<div *ngIf="selectedBoard === undefined; else showBoardDetails">No board selected</div>
+<ng-template #showBoardDetails>
     {{ selectedBoard.title }}
+</ng-template>
+
+<!-- Board update form -->
+<div *ngIf="selectedBoard === undefined; else showUpdateForm"></div>
+<ng-template #showUpdateForm>
+    <h2>Update board information</h2>
+    <form>
+        <label for="title"></label>
+        <input type="text" name="title" value="{{selectedBoard.title}}">
+
+        <br/><br/>
+        <button type="button" (click)="updateBoard(selectedBoard._id)">Update</button>
+    </form>
 </ng-template>
