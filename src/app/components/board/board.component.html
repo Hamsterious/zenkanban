@@ -25,17 +25,22 @@
 <ng-template #showUpdateForm>
     <h2>Update board information</h2>
     <form (ngSubmit)="updateBoard()" #boardUpdateForm="ngForm">
-        <label for="title"></label>
-        <input type="text" name="title" [(ngModel)]="selectedBoard.title" required #spy>
-        <br>{{spy.className}}
+
+        <!-- title -->
+        <div class="form-group">
+            <label for="title"></label>
+            <input type="text" name="title" [(ngModel)]="selectedBoard.title" required>
+        </div>
+
+        <!-- submit -->
         <br><br>
-        <button type="submit">Update</button>
+        <button type="submit" [disabled]="!boardCreateForm.form.valid">Update</button>
+
     </form>
 </ng-template>
 
 <!-- Board create form -->
 <h2>Create new board</h2>
-
 <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm">
 
     <!-- title -->
@@ -50,4 +55,5 @@
     <!-- submit -->
     <br><br>
     <button type="submit" [disabled]="!boardCreateForm.form.valid">Create</button>
+
 </form>
