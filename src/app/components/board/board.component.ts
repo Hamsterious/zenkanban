@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 
 // Custom type imports
-import { BoardService } from "app/services/board.service";
+import { BoardService } from "app/services/board/board.service";
 import { Board } from "app/components/board/board";
 
 // Component meta data
@@ -52,7 +52,7 @@ export class BoardComponent implements OnInit {
 
     private createBoard(): void {
         this.boardService.create(this.newBoard).subscribe(
-            x => x,
+            x => this.newBoard = new Board(),
             error => error = <any>error
         );
     }

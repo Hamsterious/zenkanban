@@ -7,7 +7,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 
 // Custom type imports
-import { IBoardService } from "app/services/Iboardservice";
+import { IBoardService } from "app/services/board/Iboardservice";
 import { Board } from "app/components/board/board";
 
 // Service
@@ -21,11 +21,6 @@ export class BoardService implements IBoardService {
     constructor(private http: Http) { }
 
     // Methods
-    public create(board: Board): Observable<Board> {
-        var data = JSON.stringify(board);
-        return this.http.post(this.boardsUrl, data,this.getHeaderOption()).map(response => response.json());
-    }
-
     public getAll(): Observable<Board[]> {
         return this.http.get(this.boardsUrl).map(response => response.json());
     }
@@ -34,9 +29,14 @@ export class BoardService implements IBoardService {
         return this.http.get(this.boardsUrl + "/" + id).map(response => response.json());
     }
 
+    public create(board: Board): Observable<Board> {
+        var data = JSON.stringify(board);
+        return this.http.post(this.boardsUrl, data, this.getHeaderOption()).map(response => response.json());
+    }
+
     public update(board: Board): Observable<Board> {
         var data = JSON.stringify(board);
-        return this.http.post(this.boardsUrl + "/" + board._id, data,this.getHeaderOption()).map(response => response.json());
+        return this.http.post(this.boardsUrl + "/" + board._id, data, this.getHeaderOption()).map(response => response.json());
     }
 
     public delete(id: string): Observable<Board> {
