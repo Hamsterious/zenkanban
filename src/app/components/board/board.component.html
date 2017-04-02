@@ -13,7 +13,7 @@
         <div *ngIf="boards === undefined || boards.length === 0; else showBoards">No boards created</div>
         <ng-template #showBoards>
             <div class="card-columns">
-                <div class="card" style="width: 15rem; margin-bottom: 20px;" *ngFor="let board of boards">
+                <div class="card" *ngFor="let board of boards">
                     <div class="card-block">
                         <h4 class="card-title">{{ board.title }}</h4>
                         <p class="card-text">Description coming</p>
@@ -22,6 +22,27 @@
                 </div>
             </div>
         </ng-template>
+
+        <!-- Board create form -->
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Create new board</h4>
+                <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form">
+
+                    <!-- title -->
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" required>
+                        <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                            Title is required
+                        </div>
+                    </div>
+
+                    <!-- submit -->
+                    <button type="submit" [disabled]="!boardCreateForm.form.valid" class="btn btn-success">Create</button>
+                </form>
+            </div>
+        </div>
 
     </div>
 
@@ -43,26 +64,6 @@
 
             </form>
         </ng-template>
-    </div>
-
-    <!-- Board create form -->
-    <div class="col-12">
-        <h2>Create new board</h2>
-        <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form">
-
-            <!-- title -->
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" required>
-                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
-                    Title is required
-                </div>
-            </div>
-
-            <!-- submit -->
-            <button type="submit" [disabled]="!boardCreateForm.form.valid">Create</button>
-
-        </form>
     </div>
 
 </div>
