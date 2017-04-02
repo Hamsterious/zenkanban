@@ -11,7 +11,7 @@
     <ul>
         <li *ngFor="let board of boards">
             {{ board.title }} -
-            <a href="#0" (click)="getBoard(board)">Details</a> -
+            <button type="button" (click)="getBoard(board)">Details</button> -
             <form (ngSubmit)="deleteBoard(board)">
                 <input type="submit" value="Delete {{board.title}}">
             </form>
@@ -40,7 +40,7 @@
 
         <!-- submit -->
         <br><br>
-        <button type="submit" [disabled]="!boardCreateForm.form.valid">Update</button>
+        <button type="submit" [disabled]="!boardUpdateForm.form.valid">Update</button>
 
     </form>
 </ng-template>
