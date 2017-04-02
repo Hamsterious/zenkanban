@@ -6,7 +6,6 @@
         <button type="button" (click)="undoDeleteBoard()">Undo</button>
     </ng-template>
 
-
     <!-- Board list -->
     <div *ngIf="boards === undefined || boards.length === 0; else showBoards">No boards created</div>
     <ng-template #showBoards>
@@ -41,7 +40,6 @@
             </div>
 
             <!-- submit -->
-            <br><br>
             <button type="submit" [disabled]="!boardUpdateForm.form.valid">Update</button>
 
         </form>
@@ -61,7 +59,6 @@
         </div>
 
         <!-- submit -->
-        <br><br>
         <button type="submit" [disabled]="!boardCreateForm.form.valid">Create</button>
 
     </form>
