@@ -35,6 +35,10 @@ export class BoardComponent implements OnInit {
     }
 
     // Methods
+    private selectBoard(board: Board): void {
+        this.selectedBoard = board;
+    }
+
     private getBoards(): void {
         this.boardService.getAll().subscribe(
             x => this.boards = x,
