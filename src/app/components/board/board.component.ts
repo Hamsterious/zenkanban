@@ -51,6 +51,16 @@ export class BoardComponent implements OnInit {
         );
     }
 
+    private updateBoard(): void {
+        this.boardService.update(this.selectedBoard).subscribe(
+            x => {
+                this.selectedBoard = x;
+                console.log(this.selectedBoard);
+            },
+            error => error = <any>error
+        );
+    }
+
     private deleteBoard(id: string): void {
         if (!id) { return; }
         this.boardService.delete(id).subscribe(

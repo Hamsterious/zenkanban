@@ -33,14 +33,17 @@ export class BoardService implements IBoardService {
         return this.http.get(this.boardsUrl + "/" + id).map(response => response.json());
     }
 
-    public update(id: string): Observable<Board> {
-        throw new Error('Method not implemented.');
+    public update(board: Board): Observable<Board> {
+        var data = JSON.stringify(board);
+        return this.http.post(this.boardsUrl + "/" + board._id, data,this.getHeaderOption()).map(response => response.json());
     }
 
     public delete(id: string): Observable<Board> {
+        return this.http.post(this.boardsUrl + "/delete/" + id, this.getHeaderOption()).map(response => response.json());
+    }
+
+    private getHeaderOption(): RequestOptions {
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        
-        return this.http.post(this.boardsUrl + "/delete/" + id, options).map(response => response.json());
+        return new RequestOptions({ headers: headers });
     }
 }

@@ -6,7 +6,6 @@
         <li *ngFor="let board of boards">
             {{ board.title }} -
             <a href="#0" (click)="getBoard(board._id)">Details</a> -
-            <a [routerLink]="['/update-board', board._id]">Update</a> -
             <form (ngSubmit)="deleteBoard(board._id)">
                 <input type="submit" value="Delete {{board.title}}">
             </form>
@@ -25,12 +24,11 @@
 <div *ngIf="selectedBoard === undefined; else showUpdateForm"></div>
 <ng-template #showUpdateForm>
     <h2>Update board information</h2>
-    <form>
+    <form (ngSubmit)="updateBoard()" #boardUpdateForm="ngForm">
         <label for="title"></label>
-        <input type="text" name="title" value="{{selectedBoard.title}}">
-
-        <br/><br/>
-        <button type="button" (click)="updateBoard(selectedBoard._id)">Update</button>
+        <input type="text" name="title" [(ngModel)]="selectedBoard.title" required>
+        <br><br>
+        <button type="submit">Update</button>
     </form>
 </ng-template>
 
