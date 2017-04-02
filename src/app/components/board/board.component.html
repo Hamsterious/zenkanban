@@ -6,32 +6,23 @@
         <!-- Undo delete board -->
         <div *ngIf="deletedBoards.length === 0; else showUndoDelete"></div>
         <ng-template #showUndoDelete>
-            <button type="button" (click)="undoDeleteBoard()">Undo</button>
+            <button type="button" (click)="undoDeleteBoard()" class="btn btn-info btn-lg undo-button">Undo</button>
         </ng-template>
 
         <!-- Board list -->
         <div *ngIf="boards === undefined || boards.length === 0; else showBoards">No boards created</div>
         <ng-template #showBoards>
-            <ul>
-                <li *ngFor="let board of boards">
-                    {{ board.title }} -
-                    <button type="button" (click)="getBoard(board)">Details</button> -
-                    <form (ngSubmit)="deleteBoard(board)">
-                        <input type="submit" value="Delete {{board.title}}">
-                    </form>
-                </li>
-            </ul>
+            <div class="card-columns">
+                <div class="card" style="width: 15rem; margin-bottom: 20px;" *ngFor="let board of boards">
+                    <div class="card-block">
+                        <h4 class="card-title">{{ board.title }}</h4>
+                        <p class="card-text">Description coming</p>
+                        <button type="submit" value="Delete {{board.title}}" (click)="deleteBoard(board)" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
         </ng-template>
 
-    </div>
-
-    <!-- Board details -->
-    <div class="col-12">
-        <h2 id="testing">Board details</h2>
-        <div *ngIf="selectedBoard === undefined; else showBoardDetails">No board selected</div>
-        <ng-template #showBoardDetails>
-            {{ selectedBoard.title }}
-        </ng-template>
     </div>
 
     <!-- Board update form -->
