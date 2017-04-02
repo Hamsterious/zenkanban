@@ -1,6 +1,5 @@
 // Angular Imports
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from "@angular/router";
 
 // Custom type imports
 import 'rxjs/add/operator/switchMap';
@@ -26,9 +25,7 @@ export class BoardComponent implements OnInit {
 
     // Constructor
     constructor(
-        private boardService: BoardService,
-        private route: ActivatedRoute,
-        private router: Router,
+        private boardService: BoardService
     ) { }
 
     // Initializing
@@ -61,10 +58,4 @@ export class BoardComponent implements OnInit {
             error => error = <any>error
         );
     }
-
-    private goToUpdateBoard(): void {
-        this.router.navigate(['/update-board', this.selectedBoard._id]);
-    }
-
-
 }
