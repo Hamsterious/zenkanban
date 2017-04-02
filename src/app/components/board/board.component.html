@@ -20,29 +20,28 @@
                         <button type="submit" value="Delete {{board.title}}" (click)="deleteBoard(board)" class="btn btn-danger">Delete</button>
                     </div>
                 </div>
+
+                <!-- Board create form -->
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">Create new board</h4>
+                        <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form">
+
+                            <!-- title -->
+                            <div class="form-group">
+                                <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" placeholder="title" required>
+                                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                                    Title is required
+                                </div>
+                            </div>
+
+                            <!-- submit -->
+                            <button type="submit" [disabled]="!boardCreateForm.form.valid" class="btn btn-success">Create</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </ng-template>
-
-        <!-- Board create form -->
-        <div class="card">
-            <div class="card-block">
-                <h4 class="card-title">Create new board</h4>
-                <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form">
-
-                    <!-- title -->
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" required>
-                        <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
-                            Title is required
-                        </div>
-                    </div>
-
-                    <!-- submit -->
-                    <button type="submit" [disabled]="!boardCreateForm.form.valid" class="btn btn-success">Create</button>
-                </form>
-            </div>
-        </div>
 
     </div>
 
