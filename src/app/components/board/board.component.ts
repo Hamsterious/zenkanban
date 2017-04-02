@@ -2,9 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 // Custom type imports
-import 'rxjs/add/operator/switchMap';
-
-// Custom type imports
 import { BoardService } from "app/services/board/board.service";
 import { Board } from "app/components/board/board";
 
@@ -52,14 +49,26 @@ export class BoardComponent implements OnInit {
 
     private createBoard(): void {
         this.boardService.create(this.newBoard).subscribe(
-            x => this.newBoard = new Board(),
+            x => {
+                this.boards.push(this.newBoard);
+                this.newBoard = new Board();
+            },
             error => error = <any>error
         );
     }
 
     private updateBoard(): void {
         this.boardService.update(this.selectedBoard).subscribe(
-            x => this.selectedBoard = x,
+            x => {
+                // Update board in local collection as well
+                Object.assign(
+                    this.boards.find(x => x._id === this.selectedBoard._id), // Board in collection to update
+                    this.selectedBoard // Update values
+                );
+
+                // Done to hide update form
+                this.selectedBoard = undefined;
+            },
             error => error = <any>error
         );
     }
@@ -67,7 +76,7 @@ export class BoardComponent implements OnInit {
     private deleteBoard(id: string): void {
         if (!id) { return; }
         this.boardService.delete(id).subscribe(
-            x => x,
+            x => this.boards = this.boards.filter(x => x._id !== id),
             error => error = <any>error
         );
     }
