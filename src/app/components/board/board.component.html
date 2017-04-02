@@ -6,7 +6,7 @@
 
 
 <!-- Board list -->
-<div *ngIf="boards === undefined; else showBoards">No boards created</div>
+<div *ngIf="boards === undefined || boards.length === 0; else showBoards">No boards created</div>
 <ng-template #showBoards>
     <ul>
         <li *ngFor="let board of boards">
