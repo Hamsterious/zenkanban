@@ -32,6 +32,10 @@
     </form>
 </ng-template>
 
-
-
-<router-outlet></router-outlet>
+<h2>Create new board</h2>
+<form (ngSubmit)="createBoard()" #boardCreateForm="ngForm">
+    <label for="title"></label>
+    <input type="text" name="title" [(ngModel)]="newBoard.title" required>
+    <br><br>
+    <button type="submit">Create</button>
+</form>

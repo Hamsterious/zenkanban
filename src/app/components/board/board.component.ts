@@ -22,6 +22,7 @@ export class BoardComponent implements OnInit {
     // Properties
     public boards: Board[];
     public selectedBoard: Board;
+    public newBoard: Board;
 
     // Constructor
     constructor(
@@ -31,6 +32,7 @@ export class BoardComponent implements OnInit {
     // Initializing
     ngOnInit() {
         this.getBoards();
+        this.newBoard = new Board();
     }
 
     // Methods
@@ -43,20 +45,21 @@ export class BoardComponent implements OnInit {
 
     private getBoard(id: string): void {
         this.boardService.get(id).subscribe(
-            x => {
-                this.selectedBoard = x;
-                console.log(this.selectedBoard);
-            },
+            x => this.selectedBoard = x,
+            error => error = <any>error
+        );
+    }
+
+    private createBoard(): void {
+        this.boardService.create(this.newBoard).subscribe(
+            x => x,
             error => error = <any>error
         );
     }
 
     private updateBoard(): void {
         this.boardService.update(this.selectedBoard).subscribe(
-            x => {
-                this.selectedBoard = x;
-                console.log(this.selectedBoard);
-            },
+            x => this.selectedBoard = x,
             error => error = <any>error
         );
     }
@@ -64,7 +67,7 @@ export class BoardComponent implements OnInit {
     private deleteBoard(id: string): void {
         if (!id) { return; }
         this.boardService.delete(id).subscribe(
-            x => console.log(x),
+            x => x,
             error => error = <any>error
         );
     }

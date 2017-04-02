@@ -22,7 +22,8 @@ export class BoardService implements IBoardService {
 
     // Methods
     public create(board: Board): Observable<Board> {
-        throw new Error('Method not implemented.');
+        var data = JSON.stringify(board);
+        return this.http.post(this.boardsUrl, data,this.getHeaderOption()).map(response => response.json());
     }
 
     public getAll(): Observable<Board[]> {

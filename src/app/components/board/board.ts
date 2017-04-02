@@ -1,6 +1,5 @@
 export class Board {
-    constructor(
-        public _id: string,
-        public title: string
-    ){}
+    public _id: string;
+    public title: string;
+    constructor() {}
 }
