@@ -50,7 +50,7 @@ export class BoardComponent implements OnInit {
     private createBoard(): void {
         this.boardService.create(this.newBoard).subscribe(
             x => {
-                this.boards.push(this.newBoard);
+                this.boards.push(x);
                 this.newBoard = new Board();
             },
             error => error = <any>error
@@ -62,7 +62,7 @@ export class BoardComponent implements OnInit {
             x => {
                 // Update board in local collection as well
                 Object.assign(
-                    this.boards.find(x => x._id === this.selectedBoard._id), // Board in collection to update
+                    this.boards.find(x => x._id === this.selectedBoard._id), // Board to update
                     this.selectedBoard // Update values
                 );
 
