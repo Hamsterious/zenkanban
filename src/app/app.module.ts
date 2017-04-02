@@ -1,3 +1,6 @@
+// Jquery definition file
+/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
+
 // Angular imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

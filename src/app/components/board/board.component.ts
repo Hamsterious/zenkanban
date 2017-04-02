@@ -9,7 +9,7 @@ import { Board } from "app/components/board/board";
 @Component({
     selector: 'board',
     templateUrl: './board.component.html',
-    styleUrls: ['./board.component.css'],
+    styleUrls: ['./board.component.scss'],
     providers: [BoardService],
 })
 
@@ -31,6 +31,7 @@ export class BoardComponent implements OnInit {
     ngOnInit() {
         this.getBoards();
         this.newBoard = new Board();
+        this.runJquery();
     }
 
     // Methods
@@ -94,5 +95,9 @@ export class BoardComponent implements OnInit {
         
         // Recreated the deleted board in form of a new board.
         this.createBoard();
+    }
+
+    private runJquery(){
+        // Add custom jquery here.
     }
 }
