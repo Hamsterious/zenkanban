@@ -20,6 +20,7 @@ export class BoardComponent implements OnInit {
     public boards: Board[];
     public selectedBoard: Board;
     public newBoard: Board;
+    public deletedBoards: Board[] =  [];
 
     // Constructor
     constructor(
@@ -40,8 +41,8 @@ export class BoardComponent implements OnInit {
         );
     }
 
-    private getBoard(id: string): void {
-        this.boardService.get(id).subscribe(
+    private getBoard(board: Board): void {
+        this.boardService.get(board._id).subscribe(
             x => this.selectedBoard = x,
             error => error = <any>error
         );
@@ -73,11 +74,25 @@ export class BoardComponent implements OnInit {
         );
     }
 
-    private deleteBoard(id: string): void {
-        if (!id) { return; }
-        this.boardService.delete(id).subscribe(
-            x => this.boards = this.boards.filter(x => x._id !== id),
+    private deleteBoard(board: Board): void {
+        // Save board-to-delete in array for undo action
+        this.deletedBoards.push(board);
+
+        // delete the board.
+        this.boardService.delete(board._id).subscribe(
+            x => this.boards = this.boards.filter(x => x._id !== board._id),
             error => error = <any>error
         );
+    }
+
+    private undoDeleteBoard(): void {
+        // Get the board to undo.
+        this.newBoard = this.deletedBoards[this.deletedBoards.length -1];
+
+        // Remove it from the undo stack
+        this.deletedBoards = this.deletedBoards.filter(x => x._id !== this.newBoard._id)
+        
+        // Recreated the deleted board in form of a new board.
+        this.createBoard();
     }
 }
