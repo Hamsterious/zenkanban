@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { BoardService } from "app/services/board/board.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-board-content',
+  selector: 'board-content',
   templateUrl: './board-content.component.html',
-  styleUrls: ['./board-content.component.scss']
+  styleUrls: ['./board-content.component.scss'],
+  providers: [BoardService]
 })
 export class BoardContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private boardService: BoardService,
+      private route: ActivatedRoute,
+      private router: Router
+    ) { }
 
   ngOnInit() {
   }

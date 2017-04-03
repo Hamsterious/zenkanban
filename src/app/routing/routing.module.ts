@@ -5,10 +5,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Common type imports
 import { BoardContentComponent } from "app/components/board-content/board-content.component";
+import { BoardComponent } from "app/components/board/board.component";
 
 // Route definitions
 const routes: Routes = [
-  { path: 'board-content/:id',  component: BoardContentComponent }
+  { 
+    path: '',  component: BoardComponent
+  },
+  { 
+    path: 'board/:title',  component: BoardContentComponent
+  }
 ];
 
 // Module meta data

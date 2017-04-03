@@ -1,5 +1,9 @@
 // Angular Imports
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from "@angular/router";
+
+// Rxjs
+import 'rxjs/add/operator/switchMap';
 
 // Custom type imports
 import { BoardService } from "app/services/board/board.service";
@@ -20,11 +24,13 @@ export class BoardComponent implements OnInit {
     public boards: Board[];
     public selectedBoard: Board;
     public newBoard: Board;
-    public deletedBoards: Board[] =  [];
+    public deletedBoards: Board[] = [];
 
     // Constructor
     constructor(
-        private boardService: BoardService
+        private boardService: BoardService,
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     // Initializing
@@ -92,16 +98,16 @@ export class BoardComponent implements OnInit {
 
     private undoDeleteBoard(): void {
         // Get the board to undo.
-        this.newBoard = this.deletedBoards[this.deletedBoards.length -1];
+        this.newBoard = this.deletedBoards[this.deletedBoards.length - 1];
 
         // Remove it from the undo stack
         this.deletedBoards = this.deletedBoards.filter(x => x._id !== this.newBoard._id)
-        
+
         // Recreated the deleted board in form of a new board.
         this.createBoard();
     }
 
-    private runJquery(){
+    private runJquery() {
         // Add custom jquery here.
     }
 }

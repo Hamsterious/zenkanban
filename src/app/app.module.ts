@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './components/app/app.component';
 import { BoardComponent } from './components/board/board.component';
 import { RoutingModule } from "app/routing/routing.module";
-import { BoardContentComponent } from './board-content/board-content.component';
+import { BoardContentComponent } from './components/board-content/board-content.component';
 
 // Module meta data
 @NgModule({
