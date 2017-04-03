@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 // Common type imports
-import { BoardComponent } from '../components/board/board.component';
+import { BoardContentComponent } from "app/components/board-content/board-content.component";
 
 // Route definitions
 const routes: Routes = [
-  { path: 'update-board/:id',  component: BoardComponent }
+  { path: 'board-content/:id',  component: BoardContentComponent }
 ];
 
 // Module meta data
