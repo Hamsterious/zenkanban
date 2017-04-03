@@ -21,14 +21,11 @@
             <div class="card" *ngFor="let board of boards">
                 <div class="card-block">
 
-                    <!-- title -->
-                    <h4 class="card-title">{{ board.title }} </h4>
-
-                    <!-- link to board -->
-                    <a [routerLink]="['/board', board._id]">enter board</a>
+                    <!-- title and board link -->
+                    <h4 class="card-title"><a [routerLink]="['/board', board._id]">{{ board.title }}</a></h4>
 
                     <!-- description -->
-                    <p class="card-text">Description coming</p>
+                    <p class="card-text">{{ board.description }}</p>
 
                     <!-- show card buttons as default -->
                     <div *ngIf="selectedBoard === undefined || selectedBoard._id !== board._id; else showEditForm">
@@ -51,6 +48,12 @@
                             <div class="form-group">
                                 <label for="title"></label>
                                 <input type="text" name="title" [(ngModel)]="selectedBoard.title" required>
+                            </div>
+
+                            <!-- description -->
+                            <div class="form-group">
+                                <label for="description"></label>
+                                <input type="text" name="description" [(ngModel)]="selectedBoard.description">
                             </div>
 
                             <!-- submit -->
@@ -79,6 +82,11 @@
                                 Title is required
                             </div>
                             <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" placeholder="title" required>
+                        </div>
+
+                        <!-- description -->
+                        <div class="form-group">
+                            <input type="text" name="description" [(ngModel)]="newBoard.description" #title="ngModel" placeholder="description">
                         </div>
 
                         <!-- submit -->
