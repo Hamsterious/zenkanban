@@ -3,7 +3,6 @@ import { BoardService } from "app/services/board/board.service";
 
 // Angular routing
 import { ActivatedRoute, Router, Params } from "@angular/router";
-import { Location } from '@angular/common';
 
 // Rxjs
 import 'rxjs/add/operator/switchMap';

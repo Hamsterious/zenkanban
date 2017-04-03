@@ -1,4 +1,6 @@
 <div *ngIf="board === undefined; else showBoard"></div>
 <ng-template #showBoard>
-   {{board.title}}
+
+   <h2>{{ board.title }}</h2>
+
 </ng-template>
