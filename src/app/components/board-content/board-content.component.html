@@ -1,3 +1,4 @@
-<p>
-  board-content works!
-</p>
+<div *ngIf="board === undefined; else showBoard"></div>
+<ng-template #showBoard>
+   {{board.title}}
+</ng-template>

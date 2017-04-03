@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardService } from "app/services/board/board.service";
-import { ActivatedRoute, Router } from "@angular/router";
+
+// Angular routing
+import { ActivatedRoute, Router, Params } from "@angular/router";
+import { Location } from '@angular/common';
+
+// Rxjs
+import 'rxjs/add/operator/switchMap';
+
+// Custom type imports
+import { Board } from "app/components/board/board";
 
 @Component({
   selector: 'board-content',
@@ -10,13 +19,23 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class BoardContentComponent implements OnInit {
 
+  private board: Board;
+
   constructor(
-      private boardService: BoardService,
-      private route: ActivatedRoute,
-      private router: Router
-    ) { }
+    private boardService: BoardService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.getBoard();
   }
 
+  private getBoard(): void {
+    this.route.params
+      .switchMap((params: Params) => this.boardService.get(params['id']))
+      .subscribe(
+        x => this.board = x,
+        error => error = <any>error
+      );
+  }
 }

@@ -1,9 +1,5 @@
 // Angular Imports
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from "@angular/router";
-
-// Rxjs
-import 'rxjs/add/operator/switchMap';
 
 // Custom type imports
 import { BoardService } from "app/services/board/board.service";
@@ -28,9 +24,7 @@ export class BoardComponent implements OnInit {
 
     // Constructor
     constructor(
-        private boardService: BoardService,
-        private route: ActivatedRoute,
-        private router: Router
+        private boardService: BoardService
     ) { }
 
     // Initializing

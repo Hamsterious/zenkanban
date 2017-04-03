@@ -22,7 +22,10 @@
                 <div class="card-block">
 
                     <!-- title -->
-                    <h4 class="card-title">{{ board.title }}</h4>
+                    <h4 class="card-title">{{ board.title }} </h4>
+
+                    <!-- link to board -->
+                    <a [routerLink]="['/board', board._id]">enter board</a>
 
                     <!-- description -->
                     <p class="card-text">Description coming</p>
