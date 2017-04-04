@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Custom type imports
 import { BoardService } from "app/services/board/board.service";
-import { Board } from "app/components/board/board";
+import { Board } from "app/models/board";
 
 // Component meta data
 @Component({

@@ -8,7 +8,7 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 import 'rxjs/add/operator/switchMap';
 
 // Custom type imports
-import { Board } from "app/components/board/board";
+import { Board } from "app/models/board";
 
 @Component({
   selector: 'board-content',

@@ -1,4 +1,4 @@
-import { Board } from "app/components/board/board";
+import { Board } from "app/models/board";
 import { Observable } from "rxjs/Observable";
 
 export interface IBoardService {
