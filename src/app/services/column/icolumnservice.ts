@@ -1,7 +1,7 @@
 import { Column } from "app/models/column";
 import { Observable } from "rxjs/Observable";
 
-export interface IColumn {
+export interface IColumnService {
     create(column: Column) : Observable<Column>;
     getAll() : Observable<Column[]>;
     get(id: string) : Observable<Object>;
