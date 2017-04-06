@@ -16,3 +16,26 @@
     </div>
 
 </ng-template>
+<!-- create card -->
+<div class="card">
+    <div class="card-block">
+
+        <!-- card title -->
+        <h4 class="card-title">Create new column</h4>
+
+        <!-- board create form -->
+        <form (ngSubmit)="createColumn(); columCreateForm.reset();" #columCreateForm="ngForm" class="form">
+
+            <!-- title -->
+            <div class="form-group">
+                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                    Title is required
+                </div>
+                <input type="text" name="title" [(ngModel)]="newColumn.title" #title="ngModel" placeholder="title" required>
+            </div>
+
+            <!-- submit -->
+            <button type="submit" [disabled]="!columCreateForm.form.valid" class="btn btn-success">Create</button>
+        </form>
+    </div>
+</div>

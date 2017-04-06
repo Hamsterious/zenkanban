@@ -13,9 +13,6 @@ import { IColumnService } from "app/services/column/icolumnservice";
 // Service
 @Injectable()
 export class ColumnService implements IColumnService {
-     
-
-
     // Properties
     private url: string = "http://localhost:3000/columns";
 

@@ -26,8 +26,10 @@ import { ColumnService } from '../../services/column/column.service';
 export class BoardContentComponent implements OnInit {
 
   // Properties
+  private boardId: string;
   private board: Board;
   public columns: Column[];
+  public newColumn: Column;
 
   // Constructor
   constructor(
@@ -38,26 +40,38 @@ export class BoardContentComponent implements OnInit {
 
   // Initializing
   ngOnInit() {
+    this.getBoardIdFromRoute();
     this.getBoard();
     this.getColumnsByBoardId();
+    this.newColumn = new Column({
+      order: 10000,
+      boardId: this.boardId
+    });
   }
 
   // Methods
+  private getBoardIdFromRoute(): void {
+    this.route.params.switchMap((params: Params) => this.boardId = params['id']).subscribe();
+  }
+
   private getBoard(): void {
-    this.route.params.switchMap((params: Params) => this.boardService
-      .get(params['id']))
-      .subscribe(
+    this.boardService.get(this.boardId).subscribe(
       x => this.board = x,
       error => error = <any>error
-      );
+    );
   }
 
   private getColumnsByBoardId(): void {
-    this.route.params.switchMap((params: Params) => this.columnService
-      .getAllByBoardId(params['id']))
-      .subscribe(
+    this.columnService.getAllByBoardId(this.boardId).subscribe(
       x => this.columns = x,
       error => error = <any>error
-      );
+    );
+  }
+
+  private createColumn(): void {
+    this.columnService.create(this.newColumn).subscribe(
+      x => this.columns.push(x),
+      error => error = <any>error
+    );
   }
 }
