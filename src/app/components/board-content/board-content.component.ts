@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BoardService } from "app/services/board/board.service";
 
 // Angular routing
-import { ActivatedRoute, Router, Params } from "@angular/router";
+import { ActivatedRoute, Params } from "@angular/router";
 
 // Rxjs imports
 import 'rxjs/add/operator/switchMap';
@@ -31,9 +31,9 @@ export class BoardContentComponent implements OnInit {
 
   // Constructor
   constructor(
-    private boardService: BoardService,
     private route: ActivatedRoute,
-    private columnService: ColumnService,
+    private boardService: BoardService,
+    private columnService: ColumnService
   ) { }
 
   // Initializing
