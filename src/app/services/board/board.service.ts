@@ -21,17 +21,17 @@ export class BoardService implements IBoardService {
     constructor(private http: Http) { }
 
     // Methods
+    public create(board: Board): Observable<Board> {
+        var data = JSON.stringify(board);
+        return this.http.post(this.boardsUrl, data, this.getHeaderOption()).map(response => response.json());
+    }
+    
     public getAll(): Observable<Board[]> {
         return this.http.get(this.boardsUrl).map(response => response.json());
     }
 
     public get(id: string): Observable<Board> {
         return this.http.get(this.boardsUrl + "/" + id).map(response => response.json());
-    }
-
-    public create(board: Board): Observable<Board> {
-        var data = JSON.stringify(board);
-        return this.http.post(this.boardsUrl, data, this.getHeaderOption()).map(response => response.json());
     }
 
     public update(board: Board): Observable<Board> {
