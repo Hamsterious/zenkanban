@@ -1,7 +1,18 @@
+<!-- Show board info-->
 <div *ngIf="board === undefined; else showBoard"></div>
 <ng-template #showBoard>
 
-   <h2>{{ board.title }}</h2>
-   <p>{{ board.description }}</p>
+    <h2>{{ board.title }}</h2>
+    <p>{{ board.description }}</p>
+
+</ng-template>
+
+<!-- Show columns info -->
+<div *ngIf="columns === undefined; else showColumns"></div>
+<ng-template #showColumns>
+
+    <div *ngFor="let column of columns">
+        {{ column.title }}
+    </div>
 
 </ng-template>

@@ -15,7 +15,7 @@ import { Board } from "app/models/board";
 export class BoardService implements IBoardService {
 
     // Properties
-    private boardsUrl: string = "http://localhost:3000/boards";
+    private url: string = "http://localhost:3000/boards";
 
     // Constructor
     constructor(private http: Http) { }
@@ -23,24 +23,24 @@ export class BoardService implements IBoardService {
     // Methods
     public create(board: Board): Observable<Board> {
         var data = JSON.stringify(board);
-        return this.http.post(this.boardsUrl, data, this.getHeaderOption()).map(response => response.json());
+        return this.http.post(this.url, data, this.getHeaderOption()).map(response => response.json());
     }
     
     public getAll(): Observable<Board[]> {
-        return this.http.get(this.boardsUrl).map(response => response.json());
+        return this.http.get(this.url).map(response => response.json());
     }
 
     public get(id: string): Observable<Board> {
-        return this.http.get(this.boardsUrl + "/" + id).map(response => response.json());
+        return this.http.get(this.url + "/" + id).map(response => response.json());
     }
 
     public update(board: Board): Observable<Board> {
         var data = JSON.stringify(board);
-        return this.http.post(this.boardsUrl + "/" + board._id, data, this.getHeaderOption()).map(response => response.json());
+        return this.http.post(this.url + "/" + board._id, data, this.getHeaderOption()).map(response => response.json());
     }
 
     public delete(id: string): Observable<Board> {
-        return this.http.post(this.boardsUrl + "/delete/" + id, this.getHeaderOption()).map(response => response.json());
+        return this.http.post(this.url + "/delete/" + id, this.getHeaderOption()).map(response => response.json());
     }
 
     private getHeaderOption(): RequestOptions {

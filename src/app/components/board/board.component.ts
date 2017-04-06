@@ -23,9 +23,7 @@ export class BoardComponent implements OnInit {
     public deletedBoards: Board[] = [];
 
     // Constructor
-    constructor(
-        private boardService: BoardService
-    ) { }
+    constructor(private boardService: BoardService) { }
 
     // Initializing
     ngOnInit() {

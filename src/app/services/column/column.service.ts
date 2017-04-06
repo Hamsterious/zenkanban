@@ -13,9 +13,11 @@ import { IColumnService } from "app/services/column/icolumnservice";
 // Service
 @Injectable()
 export class ColumnService implements IColumnService {
+     
+
 
     // Properties
-    private columnsUrl: string = "http://localhost:3000/columns";
+    private url: string = "http://localhost:3000/columns";
 
     // Constructor
     constructor(private http: Http) { }
@@ -23,24 +25,28 @@ export class ColumnService implements IColumnService {
     // Methods
     create(column: Column): Observable<Column> {
         var data = JSON.stringify(column);
-        return this.http.post(this.columnsUrl, data, this.getHeaderOption()).map(response => response.json());
+        return this.http.post(this.url, data, this.getHeaderOption()).map(response => response.json());
+    }
+
+    getAllByBoardId(boardId: string): Observable<Column[]> {
+        return this.http.get(this.url + "/board/" + boardId).map(response => response.json());
     }
 
     getAll(): Observable<Column[]> {
-        return this.http.get(this.columnsUrl).map(response => response.json());
+        return this.http.get(this.url).map(response => response.json());
     }
 
     get(id: string): Observable<Object> {
-        return this.http.get(this.columnsUrl + "/" + id).map(response => response.json());
+        return this.http.get(this.url + "/" + id).map(response => response.json());
     }
 
     update(column: Column): Observable<Column> {
       var data = JSON.stringify(column);
-        return this.http.post(this.columnsUrl + "/" + column._id, data, this.getHeaderOption()).map(response => response.json());
+        return this.http.post(this.url + "/" + column._id, data, this.getHeaderOption()).map(response => response.json());
     }
 
     delete(id: string): Observable<Column> {
-         return this.http.post(this.columnsUrl + "/delete/" + id, this.getHeaderOption()).map(response => response.json());
+         return this.http.post(this.url + "/delete/" + id, this.getHeaderOption()).map(response => response.json());
     }
 
     private getHeaderOption(): RequestOptions {
