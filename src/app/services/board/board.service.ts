@@ -8,7 +8,7 @@ import "rxjs/add/operator/map";
 
 // Custom type imports
 import { IBoardService } from "app/services/board/Iboardservice";
-import { Board } from "app/components/board/board";
+import { Board } from "app/models/board";
 
 // Service
 @Injectable()
