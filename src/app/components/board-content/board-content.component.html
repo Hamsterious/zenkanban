@@ -27,7 +27,7 @@
         <!-- undo button - show only if any deleted columns -->
         <div *ngIf="deletedColumns.length === 0; else showUndoDelete"></div>
         <ng-template #showUndoDelete>
-            <button type="button" (click)="undoDeleteColumn()" class="btn btn-info  ml-3 btn-sm">Undo Delete</button>
+            <button type="button" (click)="undoDeleteColumn()" class="btn btn-info  ml-3 btn-sm btn-undo">Undo Delete</button>
         </ng-template>
 
     </div>
