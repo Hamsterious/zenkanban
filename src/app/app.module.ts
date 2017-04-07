@@ -12,13 +12,15 @@ import { AppComponent } from './components/app/app.component';
 import { BoardComponent } from './components/board/board.component';
 import { RoutingModule } from "app/routing/routing.module";
 import { BoardContentComponent } from './components/board-content/board-content.component';
+import { TodoComponent } from './components/todo/todo.component';
 
 // Module meta data
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    BoardContentComponent
+    BoardContentComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,
