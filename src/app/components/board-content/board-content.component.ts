@@ -30,6 +30,7 @@ export class BoardContentComponent implements OnInit {
   private board: Board;
   public columns: Column[];
   public newColumn: Column;
+  public selectedColumn: Column;
   public deletedColumns: Column[] = [];
 
   // Constructor
@@ -51,6 +52,10 @@ export class BoardContentComponent implements OnInit {
   }
 
   // Methods
+   private selectColumn(column: Column): void {
+        this.selectedColumn = column;
+    }
+
   private getBoardIdFromRoute(): void {
     this.route.params.switchMap((params: Params) => this.boardId = params['id']).subscribe();
   }
@@ -81,6 +86,22 @@ export class BoardContentComponent implements OnInit {
       error => error = <any>error
     );
   }
+
+  private updateColumn(): void {
+        this.columnService.update(this.selectedColumn).subscribe(
+            x => {
+                // Update column in local collection as well
+                Object.assign(
+                    this.columns.find(x => x._id === this.selectedColumn._id), // Column to update
+                    this.selectedColumn // Update values
+                );
+
+                // Done to hide update form
+                this.selectedColumn = undefined;
+            },
+            error => error = <any>error
+        );
+    }
 
   private deleteColumn(column: Column): void {
     // Save Column-to-delete in array for undo action
