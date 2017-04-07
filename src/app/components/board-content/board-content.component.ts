@@ -30,6 +30,7 @@ export class BoardContentComponent implements OnInit {
   private board: Board;
   public columns: Column[];
   public newColumn: Column;
+  public deletedColumns: Column[] = [];
 
   // Constructor
   constructor(
@@ -70,8 +71,36 @@ export class BoardContentComponent implements OnInit {
 
   private createColumn(): void {
     this.columnService.create(this.newColumn).subscribe(
-      x => this.columns.push(x),
+      x => {
+        this.columns.push(x);
+        this.newColumn = new Column({
+          order: 10000,
+          boardId: this.boardId
+        });
+      },
       error => error = <any>error
     );
+  }
+
+  private deleteColumn(column: Column): void {
+    // Save Column-to-delete in array for undo action
+    this.deletedColumns.push(column);
+
+    // delete the Column.
+    this.columnService.delete(column._id).subscribe(
+      x => this.columns = this.columns.filter(x => x._id !== column._id),
+      error => error = <any>error
+    );
+  }
+
+  private undoDeleteColumn(): void {
+    // Get the column to undo.
+    this.newColumn = this.deletedColumns[this.deletedColumns.length - 1];
+
+    // Remove it from the undo stack
+    this.deletedColumns = this.deletedColumns.filter(x => x._id !== this.newColumn._id)
+
+    // Recreated the deleted Column in form of a new column.
+    this.createColumn();
   }
 }
