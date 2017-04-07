@@ -4,6 +4,7 @@ import { BoardService } from "app/services/board/board.service";
 
 // Angular routing
 import { ActivatedRoute, Params } from "@angular/router";
+import { Location } from '@angular/common';
 
 // Rxjs imports
 import 'rxjs/add/operator/switchMap';
@@ -37,7 +38,8 @@ export class BoardContentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private boardService: BoardService,
-    private columnService: ColumnService
+    private columnService: ColumnService,
+    private location: Location
   ) { }
 
   // Initializing
@@ -52,9 +54,12 @@ export class BoardContentComponent implements OnInit {
   }
 
   // Methods
-   private selectColumn(column: Column): void {
-        this.selectedColumn = column;
-    }
+  private backClicked(): void {
+    this.location.back();
+  }
+  private selectColumn(column: Column): void {
+    this.selectedColumn = column;
+  }
 
   private getBoardIdFromRoute(): void {
     this.route.params.switchMap((params: Params) => this.boardId = params['id']).subscribe();
@@ -88,20 +93,20 @@ export class BoardContentComponent implements OnInit {
   }
 
   private updateColumn(): void {
-        this.columnService.update(this.selectedColumn).subscribe(
-            x => {
-                // Update column in local collection as well
-                Object.assign(
-                    this.columns.find(x => x._id === this.selectedColumn._id), // Column to update
-                    this.selectedColumn // Update values
-                );
-
-                // Done to hide update form
-                this.selectedColumn = undefined;
-            },
-            error => error = <any>error
+    this.columnService.update(this.selectedColumn).subscribe(
+      x => {
+        // Update column in local collection as well
+        Object.assign(
+          this.columns.find(x => x._id === this.selectedColumn._id), // Column to update
+          this.selectedColumn // Update values
         );
-    }
+
+        // Done to hide update form
+        this.selectedColumn = undefined;
+      },
+      error => error = <any>error
+    );
+  }
 
   private deleteColumn(column: Column): void {
     // Save Column-to-delete in array for undo action
