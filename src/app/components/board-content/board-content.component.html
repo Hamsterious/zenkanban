@@ -1,60 +1,55 @@
 <div class="row" id="board-content-component">
 
-    <!-- board and undo -->
     <div class="row col-12 mb-3">
 
         <!-- board - show after board is retrieved -->
         <div *ngIf="board === undefined; else showBoard"></div>
         <ng-template #showBoard>
-            <h2 class="mr-5">
-                {{ board.title }}
-                <small class="text-muted">{{ board.description }}</small>
-            </h2>
+            <h2>{{ board.title }}</h2>
         </ng-template>
+
+        <!-- create column form -->
+        <form (ngSubmit)="createColumn(); columCreateForm.reset();" #columCreateForm="ngForm" class="form-inline ml-4">
+
+            <!-- title -->
+            <div class="form-group">
+                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                    Title is required
+                </div>
+                <input type="text" name="title" [(ngModel)]="newColumn.title" #title="ngModel" placeholder="New column title" required>
+            </div>
+
+            <!-- submit -->
+            <button type="submit" [disabled]="!columCreateForm.form.valid" class="btn btn-success btn-sm ml-3">Create</button>
+
+        </form>
 
         <!-- undo button - show only if any deleted columns -->
         <div *ngIf="deletedColumns.length === 0; else showUndoDelete"></div>
         <ng-template #showUndoDelete>
-            <button type="button" (click)="undoDeleteColumn()" class="btn btn-info">Undo Delete</button>
+            <button type="button" (click)="undoDeleteColumn()" class="btn btn-info  ml-3 btn-sm">Undo Delete</button>
         </ng-template>
+
     </div>
 
-    <!-- columns - show only if any -->
+
     <div class="row" class="col-12">
-        <div *ngIf="columns === undefined; else showColumns"></div>
-        <ng-template #showColumns>
-            <ul>
-                <li *ngFor="let column of columns">
-                    {{ column.title }}
-                    <i class="fa fa-trash text-danger" aria-hidden="true" style="cursor:pointer;" (click)="deleteColumn(column)"></i>
-                </li>
-            </ul>
-        </ng-template>
-    </div>
 
-    <!-- create column form -->
-    <div class="row" class="col-5">
-        <div class="card">
-            <div class="card-block">
 
-                <!-- form title -->
-                <h4 class="card-title">Create new column</h4>
 
-                <!-- form -->
-                <form (ngSubmit)="createColumn(); columCreateForm.reset();" #columCreateForm="ngForm" class="form">
+        <div class="card-columns">
+
+            <!-- columns - show if any -->
+            <div *ngIf="columns === undefined; else showColumns"></div>
+            <ng-template #showColumns>
+                <div class="card" *ngFor="let column of columns">
 
                     <!-- title -->
-                    <div class="form-group">
-                        <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
-                            Title is required
-                        </div>
-                        <input type="text" name="title" [(ngModel)]="newColumn.title" #title="ngModel" placeholder="title" required>
-                    </div>
+                    <h4 class="card-title ">{{ column.title }} <i class="fa fa-trash text-danger" aria-hidden="true" style="cursor:pointer;" (click)="deleteColumn(column)"></i></h4>
 
-                    <!-- submit -->
-                    <button type="submit" [disabled]="!columCreateForm.form.valid" class="btn btn-success">Create</button>
-                </form>
-            </div>
+                </div>
+            </ng-template>
+
         </div>
     </div>
 </div>

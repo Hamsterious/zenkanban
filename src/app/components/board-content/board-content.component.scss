@@ -1,0 +1,19 @@
+#board-content-component {
+    .card {
+        max-width: 20rem;
+        min-height: 38rem;
+        margin-bottom: 1rem;
+    }
+    .card-columns {
+        max-height: 40rem;
+        overflow-x: scroll;
+    }
+    input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-color: rgba(37, 159, 234, 1);
+        border-bottom-width: 1px;
+        outline: none;
+    }
+}

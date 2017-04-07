@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* Scroll bar styles */
+
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(37, 159, 234, 1);
+    border-radius: 50px;
+}
