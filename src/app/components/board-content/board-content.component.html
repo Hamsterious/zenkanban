@@ -1,55 +1,46 @@
 <div class="row" id="board-content-component">
+
     <!-- board and undo -->
-    <div class="row">
-        <!-- board info -->
-        <div class="col-6">
-            <div *ngIf="board === undefined; else showBoard"></div>
-            <ng-template #showBoard>
+    <div class="row col-12 mb-3">
 
-                <h2>{{ board.title }}</h2>
-                <span>{{ board.description }}</span>
+        <!-- board - show after board is retrieved -->
+        <div *ngIf="board === undefined; else showBoard"></div>
+        <ng-template #showBoard>
+            <h2 class="mr-5">
+                {{ board.title }}
+                <small class="text-muted">{{ board.description }}</small>
+            </h2>
+        </ng-template>
 
-            </ng-template>
-        </div>
-
-        <!-- undo button -->
-        <div class="col-6">
-            <!-- show nothing if no columns have been deleted -->
-            <div *ngIf="deletedColumns.length === 0; else showUndoDelete"></div>
-
-            <!-- show the button if a column has been deleted -->
-            <ng-template #showUndoDelete>
-
-                <!-- undo delete column button -->
-                <button type="button" (click)="undoDeleteColumn()" class="btn btn-info btn-lg undo-button">Undo Delete</button>
-
-            </ng-template>
-        </div>
+        <!-- undo button - show only if any deleted columns -->
+        <div *ngIf="deletedColumns.length === 0; else showUndoDelete"></div>
+        <ng-template #showUndoDelete>
+            <button type="button" (click)="undoDeleteColumn()" class="btn btn-info">Undo Delete</button>
+        </ng-template>
     </div>
 
-    <!-- columns -->
+    <!-- columns - show only if any -->
     <div class="row" class="col-12">
         <div *ngIf="columns === undefined; else showColumns"></div>
         <ng-template #showColumns>
             <ul>
                 <li *ngFor="let column of columns">
                     {{ column.title }}
-                    <i class="fa fa-trash" aria-hidden="true" style="cursor:pointer;color: red; font-size: 1.5em;" (click)="deleteColumn(column)"></i>
+                    <i class="fa fa-trash text-danger" aria-hidden="true" style="cursor:pointer;" (click)="deleteColumn(column)"></i>
                 </li>
             </ul>
         </ng-template>
     </div>
 
-    <!-- create form -->
-    <div class="row" class="col-3">
-        <!-- create card -->
+    <!-- create column form -->
+    <div class="row" class="col-5">
         <div class="card">
             <div class="card-block">
 
-                <!-- card title -->
+                <!-- form title -->
                 <h4 class="card-title">Create new column</h4>
 
-                <!-- board create form -->
+                <!-- form -->
                 <form (ngSubmit)="createColumn(); columCreateForm.reset();" #columCreateForm="ngForm" class="form">
 
                     <!-- title -->

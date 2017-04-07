@@ -3,31 +3,25 @@
     <!-- boards -->
     <div class="col-12">
 
-        <!-- show nothing if no boards have been deleted -->
+        <!-- undo button - show only if any deleted columns -->
         <div *ngIf="deletedBoards.length === 0; else showUndoDelete"></div>
-
-        <!-- show if a board has been deleted -->
         <ng-template #showUndoDelete>
-
-            <!-- undo delete board button -->
             <button type="button" (click)="undoDeleteBoard()" class="btn btn-info btn-lg undo-button">Undo Delete</button>
-
         </ng-template>
 
-        <!-- board cards -->
         <div class="card-columns">
 
-            <!-- board card -->
+            <!-- boards -->
             <div class="card" *ngFor="let board of boards">
                 <div class="card-block">
 
-                    <!-- title and board link -->
+                    <!-- title/link -->
                     <h4 class="card-title"><a [routerLink]="['/board', board._id]">{{ board.title }}</a></h4>
 
                     <!-- description -->
                     <p class="card-text">{{ board.description }}</p>
 
-                    <!-- show card buttons as default -->
+                    <!-- buttons - hide on edit -->
                     <div *ngIf="selectedBoard === undefined || selectedBoard._id !== board._id; else showEditForm">
 
                         <!-- delete button -->
@@ -38,10 +32,10 @@
 
                     </div>
 
-                    <!-- show the update form when pressing edit -->
+                    <!-- update form - show for selected board -->
                     <ng-template #showEditForm>
 
-                        <!-- board edit form -->
+                        <!-- form -->
                         <form (ngSubmit)="updateBoard()" #boardUpdateForm="ngForm" class="form">
 
                             <!-- title -->
@@ -66,14 +60,14 @@
             </div>
 
 
-            <!-- create card -->
+            <!-- create board form -->
             <div class="card">
                 <div class="card-block">
 
-                    <!-- card title -->
+                    <!-- form title -->
                     <h4 class="card-title">Create new board</h4>
 
-                    <!-- board create form -->
+                    <!-- form -->
                     <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form">
 
                         <!-- title -->
