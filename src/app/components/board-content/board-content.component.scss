@@ -1,4 +1,8 @@
 #board-content-component {
+    .btn-back {
+        position: relative;
+        top: 7px;
+    }
     h2,
     h4 {
         color: darken(rgba(37, 159, 234, 1), 10);
