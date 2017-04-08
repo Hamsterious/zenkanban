@@ -45,6 +45,8 @@
     <!-- todos -->
     <div *ngIf="todos === undefined; else showTodos"></div>
     <ng-template #showTodos>
+
+        <!-- todo dragular bag -->
         <div [dragula]='"todo-bag"' class="todo-bag">
 
             <div class="card card-outline-primary mt-3" *ngFor="let todo of todos">
