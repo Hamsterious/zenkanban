@@ -7,43 +7,43 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 
 // Custom import types
-import { Column } from "app/models/column";
-import { IColumnService } from "app/services/column/icolumnservice";
+import { Todo } from "app/models/todo";
+import { ITodoService } from "app/services/todo/itodoservice";
 
 // Service
 @Injectable()
-export class ColumnService implements IColumnService {
-    
+export class TodoService implements ITodoService {
+  
     // Properties
-    private url: string = "http://localhost:3000/columns";
+    private url: string = "http://localhost:3000/todos";
 
     // Constructor
     constructor(private http: Http) { }
 
     // Methods
-    create(column: Column): Observable<Column> {
-        var data = JSON.stringify(column);
+    create(todo: Todo): Observable<Todo> {
+        var data = JSON.stringify(todo);
         return this.http.post(this.url, data, this.getHeaderOption()).map(response => response.json());
     }
 
-    getAllByBoardId(boardId: string): Observable<Column[]> {
-        return this.http.get(this.url + "/board/" + boardId).map(response => response.json());
+    getAllByColumnId(columnId: string): Observable<Todo[]> {
+        return this.http.get(this.url + "/column/" + columnId).map(response => response.json());
     }
 
-    getAll(): Observable<Column[]> {
+    getAll(): Observable<Todo[]> {
         return this.http.get(this.url).map(response => response.json());
     }
 
-    get(id: string): Observable<Column> {
+    get(id: string): Observable<Todo> {
         return this.http.get(this.url + "/" + id).map(response => response.json());
     }
 
-    update(column: Column): Observable<Column> {
-      var data = JSON.stringify(column);
-        return this.http.post(this.url + "/" + column._id, data, this.getHeaderOption()).map(response => response.json());
+    update(todo: Todo): Observable<Todo> {
+      var data = JSON.stringify(todo);
+        return this.http.post(this.url + "/" + todo._id, data, this.getHeaderOption()).map(response => response.json());
     }
 
-    delete(id: string): Observable<Column> {
+    delete(id: string): Observable<Todo> {
          return this.http.post(this.url + "/delete/" + id, this.getHeaderOption()).map(response => response.json());
     }
 

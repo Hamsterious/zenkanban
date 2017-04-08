@@ -1,16 +1,59 @@
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
-<div style="width:15rem;height:5rem;border: 1px solid blue;display:block;margin:1rem auto;"></div>
+<!-- form -->
+<form (ngSubmit)="createTodo(); todoCreateForm.reset();" #todoCreateForm="ngForm" class="form todo-create-form">
+
+    <!-- title -->
+    <div class="form-group">
+        <label for="todoTitle"></label>
+        <input type="text" name="todoTitle" [(ngModel)]="newTodo.title" placeholder="title" id="title" required>
+    </div>
+
+    <!-- details -->
+    <div class="form-group">
+        <label for="details"></label>
+        <input type="text" name="details" [(ngModel)]="newTodo.details" placeholder="details" id="details">
+    </div>
+
+    <!-- submit -->
+    <button type="submit" [disabled]="!todoCreateForm.form.valid" class="btn btn-success">Create</button>
+
+</form>
+
+<!-- undo button - show only if any deleted todos -->
+<div *ngIf="deletedTodos.length === 0; else showUndoDelete"></div>
+<ng-template #showUndoDelete>
+    <button type="button" (click)="undoDeleteTodo()" class="btn btn-info  mt-3 btn-sm btn-undo">Undo Delete</button>
+</ng-template>
+
+<div *ngIf="todos === undefined; else showTodos"></div>
+<ng-template #showTodos>
+    <div class="card" *ngFor="let todo of todos">
+
+        <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showEditForm">
+
+            <!-- title -->
+            <p class="card-title">
+
+                <label (click)="selectTodo(todo)" for="title">{{ todo.title }}</label>
+                <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
+            </p>
+        </div>
+
+        <!-- update form - show for selected cplumn -->
+        <ng-template #showColumnEditForm>
+
+            <!-- form -->
+            <form (ngSubmit)="updateTodo()" #todoUpdateForm="ngForm" class="form todo-update-form">
+
+                <!-- title -->
+                <div class="form-group">
+                    <label for="title"></label>
+                    <input type="text" name="title" [(ngModel)]="selectedTodo.title" placeholder="title" id="title" required>
+                </div>
+
+                <!-- submit -->
+                <button type="submit" [disabled]="!todoUpdateForm.form.valid" class="btn btn-success">Update</button>
+
+            </form>
+        </ng-template>
+    </div>
+</ng-template>

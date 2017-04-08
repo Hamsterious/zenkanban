@@ -1,6 +1,5 @@
-// Angular Imports
+// Angular imports
 import { Component, OnInit } from '@angular/core';
-import { BoardService } from "app/services/board/board.service";
 
 // Angular routing
 import { ActivatedRoute, Params } from "@angular/router";
@@ -13,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
 import { Board } from "app/models/board";
 import { Column } from '../../models/column';
 import { ColumnService } from '../../services/column/column.service';
-
+import { BoardService } from "app/services/board/board.service";
 
 // Component meta data
 @Component({
@@ -29,10 +28,10 @@ export class BoardContentComponent implements OnInit {
   // Properties
   private boardId: string;
   private board: Board;
-  public columns: Column[];
-  public newColumn: Column;
-  public selectedColumn: Column;
-  public deletedColumns: Column[] = [];
+  private columns: Column[];
+  private newColumn: Column;
+  private selectedColumn: Column;
+  private deletedColumns: Column[] = [];
 
   // Constructor
   constructor(
