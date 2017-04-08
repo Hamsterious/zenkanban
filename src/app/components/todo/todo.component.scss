@@ -9,6 +9,9 @@
     .todo-create-form {
         margin-left: 4rem;
     }
+    .todo-update-form {
+        margin: 15px;
+    }
     input {
         border-top: none;
         border-left: none;
@@ -22,5 +25,10 @@
         cursor: pointer;
         position: relative;
         top: -1px;
+    }
+    textarea {
+        border: 1px solid rgba(37, 159, 234, 1);
+        outline: none;
+        padding: 10px;
     }
 }
