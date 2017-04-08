@@ -10,7 +10,7 @@ import { Board } from "app/models/board";
     selector: 'board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss'],
-    providers: [BoardService],
+    providers: [BoardService]
 })
 
 // Component

@@ -4,7 +4,7 @@
         <!-- back arrow -->
         <i class="fa fa-arrow-left text-primary mt-1 mr-3" aria-hidden="true" (click)="backClicked();"></i>
 
-        <!-- board - show after board is retrieved -->
+        <!-- board title -->
         <div *ngIf="board === undefined; else showBoard"></div>
         <ng-template #showBoard>
             <h2>{{ board.title }}</h2>
@@ -23,7 +23,7 @@
 
         </form>
 
-        <!-- undo button - show only if any deleted columns -->
+        <!-- undo button -->
         <div *ngIf="deletedColumns.length === 0; else showUndoDelete"></div>
         <ng-template #showUndoDelete>
             <button type="button" (click)="undoDeleteColumn()" class="btn btn-info  ml-3 btn-sm btn-undo">Undo Delete</button>
@@ -35,23 +35,27 @@
     <div class="row" class="col-12">
         <div class="card-columns">
 
-            <!-- columns - show if any -->
+            <!-- columns -->
             <div *ngIf="columns === undefined; else showColumns"></div>
             <ng-template #showColumns>
                 <div class="card" *ngFor="let column of columns">
 
-                    <div *ngIf="selectedColumn === undefined || selectedColumn._id !== column._id; else showEditForm">
+                    <div *ngIf="selectedColumn === undefined || selectedColumn._id !== column._id; else showUpdateForm">
+
                         <!-- title -->
                         <h4 class="card-title">
                             <label (click)="selectColumn(column)" for="title">{{ column.title }}</label>
+
+                            <!-- delete column button -->
                             <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteColumn(column)"></i>
                         </h4>
 
+                        <!-- todos -->
                         <todo [column]="column"></todo>
                     </div>
 
-                    <!-- update form - show for selected cplumn -->
-                    <ng-template #showEditForm>
+                    <!-- update form -->
+                    <ng-template #showUpdateForm>
 
                         <!-- form -->
                         <form (ngSubmit)="updateColumn()" #columnUpdateForm="ngForm" class="form column-update-form">
@@ -66,9 +70,12 @@
                             <button type="submit" [disabled]="!columnUpdateForm.form.valid" class="btn btn-success">Update</button>
 
                         </form>
+
                     </ng-template>
+
                 </div>
             </ng-template>
+
         </div>
     </div>
 </div>

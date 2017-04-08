@@ -16,7 +16,7 @@
             <button type="submit" [disabled]="!boardCreateForm.form.valid" class="btn btn-success btn-sm ml-3">Create</button>
         </form>
 
-        <!-- undo button - show only if any deleted columns -->
+        <!-- undo button -->
         <div *ngIf="deletedBoards.length === 0; else showUndoDelete"></div>
         <ng-template #showUndoDelete>
             <button type="button" (click)="undoDeleteBoard()" class="btn btn-info btn-sm btn-undo ml-3">Undo Delete</button>
@@ -30,8 +30,8 @@
         <div class="card card-outline-primary" *ngFor="let board of boards">
             <div class="card-block">
 
-                <!-- board when not edited -->
-                <div *ngIf="selectedBoard === undefined || selectedBoard._id !== board._id; else showEditForm">
+                <!-- content -->
+                <div *ngIf="selectedBoard === undefined || selectedBoard._id !== board._id; else showUpdateForm">
 
                     <!-- title/link -->
                     <h4 class="card-title "><a [routerLink]="['/board', board._id]">{{ board.title }}</a></h4>
@@ -42,13 +42,13 @@
                     <!-- delete button -->
                     <button type="button" (click)="deleteBoard(board)" class="btn btn-danger">Delete</button>
 
-                    <!-- edit button -->
+                    <!-- update button -->
                     <button type="button" (click)="selectBoard(board)" class="btn btn-primary">Edit</button>
 
                 </div>
 
-                <!-- edit form - show for selected board -->
-                <ng-template #showEditForm>
+                <!-- update form -->
+                <ng-template #showUpdateForm>
 
                     <!-- form -->
                     <form (ngSubmit)="updateBoard();" #boardUpdateForm="ngForm" class="form">
@@ -67,13 +67,10 @@
 
                         <!-- submit -->
                         <button type="submit" [disabled]="!boardUpdateForm.form.valid" class="btn btn-success">Update</button>
-
                     </form>
 
                 </ng-template>
             </div>
         </div>
-
-
     </div>
 </div>

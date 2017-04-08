@@ -20,7 +20,7 @@
 
     </form>
 
-    <!-- undo button - show only if any deleted todos -->
+    <!-- undo button -->
     <div *ngIf="deletedTodos.length === 0; else showUndoDelete"></div>
     <ng-template #showUndoDelete>
         <button type="button" (click)="undoDeleteTodo()" class="btn btn-info  mt-3 btn-sm btn-undo">Undo Delete</button>
@@ -32,7 +32,7 @@
 
         <div class="card card-outline-primary mt-3" *ngFor="let todo of todos">
 
-            <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoEditForm">
+            <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoUpdateForm">
 
                 <!-- title -->
                 <div class="card-title">
@@ -46,8 +46,8 @@
                 </div>
             </div>
 
-            <!-- update form - show for selected column -->
-            <ng-template #showTodoEditForm>
+            <!-- update form -->
+            <ng-template #showTodoUpdateForm>
 
                 <!-- form -->
                 <form (ngSubmit)="updateTodo()" #todoUpdateForm="ngForm" class="form todo-update-form">
@@ -69,6 +69,8 @@
 
                 </form>
             </ng-template>
+
         </div>
     </ng-template>
+
 </div>
