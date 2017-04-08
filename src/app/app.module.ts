@@ -7,6 +7,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// 3rd party
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+
 // Custom type imports
 import { AppComponent } from './components/app/app.component';
 import { BoardComponent } from './components/board/board.component';
@@ -26,7 +29,8 @@ import { TodoComponent } from './components/todo/todo.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RoutingModule
+    RoutingModule,
+    DragulaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
