@@ -1,30 +1,46 @@
 <div class="row col-12" id="todos">
 
-    <!-- create todo form -->
-    <form (ngSubmit)="createTodo(); todoCreateForm.reset();" #todoCreateForm="ngForm" class="form todo-create-form">
+    <div class="row col-12">
 
-        <!-- title -->
-        <div class="form-group">
-            <label for="todoTitle"></label>
-            <input type="text" name="todoTitle" [(ngModel)]="newTodo.title" placeholder="title" id="title" required>
+
+        <div *ngIf="showCreateForm === true; else showCreateFormButton">
+            <!-- create todo form -->
+            <form (ngSubmit)="createTodo(); todoCreateForm.reset();" #todoCreateForm="ngForm" class="form todo-create-form justify-content-center">
+
+                <!-- title -->
+                <div class="form-group">
+                    <label for="todoTitle"></label>
+                    <input type="text" name="todoTitle" [(ngModel)]="newTodo.title" placeholder="Todo title" id="title" required>
+                </div>
+
+                <!-- details -->
+                <div class="form-group">
+                    <label for="details"></label>
+                    <input type="text" name="details" [(ngModel)]="newTodo.details" placeholder="Details" id="details">
+                </div>
+
+                <!-- submit -->
+                <button type="submit" [disabled]="!todoCreateForm.form.valid" class="btn btn-success">Create</button>
+
+                <!-- cancel -->
+                <button type="submit" class="btn btn-info" (click)="setShowCreateForm(false);">Cancel</button>
+
+            </form>
         </div>
 
-        <!-- details -->
-        <div class="form-group">
-            <label for="details"></label>
-            <input type="text" name="details" [(ngModel)]="newTodo.details" placeholder="details" id="details">
-        </div>
+        <ng-template #showCreateFormButton>
 
-        <!-- submit -->
-        <button type="submit" [disabled]="!todoCreateForm.form.valid" class="btn btn-success">Create</button>
+            <!-- show create form button -->
+            <button type="button" class="btn btn-large btn-outline-success show-create-btn" (click)="setShowCreateForm(true);">Create new todo <i class="fa fa-plus text-success ml-2" aria-hidden="true"></i></button>
 
-    </form>
+        </ng-template>
 
-    <!-- undo button -->
-    <div *ngIf="deletedTodos.length === 0; else showUndoDelete"></div>
-    <ng-template #showUndoDelete>
-        <button type="button" (click)="undoDeleteTodo()" class="btn btn-info  mt-3 btn-sm btn-undo">Undo Delete</button>
-    </ng-template>
+        <!-- undo button -->
+        <div *ngIf="deletedTodos.length === 0; else showUndoDelete"></div>
+        <ng-template #showUndoDelete>
+            <button type="button" (click)="undoDeleteTodo()" class="btn btn-info  mt-3 btn-sm btn-undo">Undo Delete</button>
+        </ng-template>
+    </div>
 
     <!-- todos -->
     <div *ngIf="todos === undefined; else showTodos"></div>
@@ -37,9 +53,9 @@
                 <!-- title -->
                 <div class="card-title">
 
-                    <span (click)="selectTodo(todo)" for="todoTitle">Title: {{ todo.title }}</span>
+                    <h6 (click)="selectTodo(todo)" for="todoTitle">{{ todo.title }}</h6>
                     <br>
-                    <span>Details: {{ todo.details }}</span>
+                    <span>{{ todo.details }}</span>
 
                     <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
 

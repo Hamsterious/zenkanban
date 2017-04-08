@@ -1,0 +1,20 @@
+#todos {
+    .card {
+        margin-left: 2rem;
+    }
+    .show-create-btn,
+    .btn-undo {
+        margin-left: 2rem;
+    }
+    .todo-create-form {
+        margin-left: 4rem;
+    }
+    input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-color: rgba(37, 159, 234, 1);
+        border-bottom-width: 1px;
+        outline: none;
+    }
+}

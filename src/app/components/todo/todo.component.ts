@@ -27,6 +27,7 @@ export class TodoComponent implements OnInit {
   private newTodo: Todo;
   private selectedTodo: Todo;
   private deletedTodos: Todo[] = [];
+  private showCreateForm: boolean;
 
   // Constructor
   constructor(
@@ -44,6 +45,10 @@ export class TodoComponent implements OnInit {
   }
 
   // Methods
+  public setShowCreateForm(value: boolean): void {
+    this.showCreateForm = value;
+  }
+
   private selectTodo(todo: Todo): void {
     this.selectedTodo = todo;
   }
@@ -73,6 +78,8 @@ export class TodoComponent implements OnInit {
       },
       error => error = <any>error
     );
+
+    this.setShowCreateForm(false);
   }
 
   private updateTodo(): void {
