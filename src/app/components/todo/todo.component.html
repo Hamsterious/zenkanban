@@ -38,7 +38,7 @@
         <!-- undo button -->
         <div *ngIf="deletedTodos.length === 0; else showUndoDelete"></div>
         <ng-template #showUndoDelete>
-            <button type="button" (click)="undoDeleteTodo()" class="btn btn-info  mt-3 btn-sm btn-undo">Undo Delete</button>
+            <button type="button" (click)="undoDeleteTodo()" class="btn btn-info mt-3 btn-sm btn-undo">Undo Delete</button>
         </ng-template>
     </div>
 
@@ -50,14 +50,16 @@
 
             <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoUpdateForm">
 
-                <!-- title -->
                 <div class="card-title">
 
-                    <h6 (click)="selectTodo(todo)" for="todoTitle">{{ todo.title }}</h6>
-                    <br>
-                    <span>{{ todo.details }}</span>
+                    <!-- title -->
+                    <h4 class="ml-2 mt-2">
+                        {{ todo.title }}
+                        <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
+                    </h4>
 
-                    <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
+                    <!-- details -->
+                    <p class="ml-2 mt-2">{{ todo.details }}</p>
 
                 </div>
             </div>
