@@ -45,51 +45,53 @@
     <!-- todos -->
     <div *ngIf="todos === undefined; else showTodos"></div>
     <ng-template #showTodos>
+        <div [dragula]='"todo-bag"'>
 
-        <div class="card card-outline-primary mt-3" *ngFor="let todo of todos">
+            <div class="card card-outline-primary mt-3" *ngFor="let todo of todos">
+                <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoUpdateForm">
 
-            <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoUpdateForm">
+                    <div class="card-title">
 
-                <div class="card-title">
+                        <!-- title -->
+                        <h4 class="ml-2 mt-2">
+                            {{ todo.title }}
+                            <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
+                            <i class="fa fa-pencil text-info" aria-hidden="true" (click)="selectTodo(todo)"></i>
+                        </h4>
 
-                    <!-- title -->
-                    <h4 class="ml-2 mt-2">
-                        {{ todo.title }}
-                        <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
-                        <i class="fa fa-pencil text-info" aria-hidden="true" (click)="selectTodo(todo)"></i>
-                    </h4>
+                        <!-- details -->
+                        <p class="ml-2 mt-2">{{ todo.details }}</p>
 
-                    <!-- details -->
-                    <p class="ml-2 mt-2">{{ todo.details }}</p>
-
+                    </div>
                 </div>
+
+                <!-- update form -->
+                <ng-template #showTodoUpdateForm>
+
+                    <!-- form -->
+                    <form (ngSubmit)="updateTodo()" #todoUpdateForm="ngForm" class="form todo-update-form">
+
+                        <!-- title -->
+                        <div class="form-group">
+                            <label for="todoTitle"></label>
+                            <input type="text" name="title" [(ngModel)]="selectedTodo.title" placeholder="title" id="todoTitle" required>
+                        </div>
+
+                        <!-- details -->
+                        <div class="form-group">
+                            <label for="todoTitle"></label>
+                            <textarea rows="5" cols="20" name="details" [(ngModel)]="selectedTodo.details" placeholder="details" id="details"></textarea>
+                        </div>
+
+                        <!-- submit -->
+                        <button type="submit" [disabled]="!todoUpdateForm.form.valid" class="btn btn-success">Update</button>
+
+                    </form>
+                </ng-template>
+
             </div>
-
-            <!-- update form -->
-            <ng-template #showTodoUpdateForm>
-
-                <!-- form -->
-                <form (ngSubmit)="updateTodo()" #todoUpdateForm="ngForm" class="form todo-update-form">
-
-                    <!-- title -->
-                    <div class="form-group">
-                        <label for="todoTitle"></label>
-                        <input type="text" name="title" [(ngModel)]="selectedTodo.title" placeholder="title" id="todoTitle" required>
-                    </div>
-
-                    <!-- details -->
-                    <div class="form-group">
-                        <label for="todoTitle"></label>
-                        <textarea rows="5" cols="20" name="details" [(ngModel)]="selectedTodo.details" placeholder="details" id="details"></textarea>
-                    </div>
-
-                    <!-- submit -->
-                    <button type="submit" [disabled]="!todoUpdateForm.form.valid" class="btn btn-success">Update</button>
-
-                </form>
-            </ng-template>
-
         </div>
+
     </ng-template>
 
 </div>
