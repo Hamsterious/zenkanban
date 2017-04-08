@@ -1,11 +1,28 @@
 <div class="row col-12" id="board-component">
+    <div class="row col-12 mb-3">
 
-    <!-- undo button - show only if any deleted columns -->
-    <div *ngIf="deletedBoards.length === 0; else showUndoDelete"></div>
-    <ng-template #showUndoDelete>
-        <button type="button" (click)="undoDeleteBoard()" class="btn btn-info btn-lg undo-button">Undo Delete</button>
-    </ng-template>
+        <!-- page title -->
+        <h2>Boards</h2>
 
+        <!-- create board form -->
+        <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form-inline ml-4">
+
+            <!-- title -->
+            <div class="form-group">
+                <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" placeholder="New board title" required>
+            </div>
+
+            <!-- submit -->
+            <button type="submit" [disabled]="!boardCreateForm.form.valid" class="btn btn-success btn-sm ml-3">Create</button>
+        </form>
+
+        <!-- undo button - show only if any deleted columns -->
+        <div *ngIf="deletedBoards.length === 0; else showUndoDelete"></div>
+        <ng-template #showUndoDelete>
+            <button type="button" (click)="undoDeleteBoard()" class="btn btn-info btn-sm btn-undo ml-3">Undo Delete</button>
+        </ng-template>
+
+    </div>
 
     <div class="card-columns">
 
@@ -13,14 +30,14 @@
         <div class="card card-outline-primary" *ngFor="let board of boards">
             <div class="card-block">
 
-                <!-- title/link -->
-                <h4 class="card-title "><a [routerLink]="['/board', board._id]">{{ board.title }}</a></h4>
-
-                <!-- description -->
-                <p class="card-text">{{ board.description }}</p>
-
-                <!-- buttons - hide on edit -->
+                <!-- board when not edited -->
                 <div *ngIf="selectedBoard === undefined || selectedBoard._id !== board._id; else showEditForm">
+
+                    <!-- title/link -->
+                    <h4 class="card-title "><a [routerLink]="['/board', board._id]">{{ board.title }}</a></h4>
+
+                    <!-- description -->
+                    <p class="card-text">{{ board.description }}</p>
 
                     <!-- delete button -->
                     <button type="button" (click)="deleteBoard(board)" class="btn btn-danger">Delete</button>
@@ -30,22 +47,22 @@
 
                 </div>
 
-                <!-- update form - show for selected board -->
+                <!-- edit form - show for selected board -->
                 <ng-template #showEditForm>
 
                     <!-- form -->
-                    <form (ngSubmit)="updateBoard()" #boardUpdateForm="ngForm" class="form">
+                    <form (ngSubmit)="updateBoard();" #boardUpdateForm="ngForm" class="form">
 
                         <!-- title -->
                         <div class="form-group">
                             <label for="title"></label>
-                            <input type="text" name="title" [(ngModel)]="selectedBoard.title" placeholder="title" required>
+                            <input type="text" name="title" [(ngModel)]="selectedBoard.title" placeholder="Board title" required>
                         </div>
 
                         <!-- description -->
                         <div class="form-group">
                             <label for="description"></label>
-                            <input type="text" name="description" [(ngModel)]="selectedBoard.description" placeholder="description">
+                            <input type="text" name="description" [(ngModel)]="selectedBoard.description" placeholder="Board description">
                         </div>
 
                         <!-- submit -->
@@ -57,33 +74,6 @@
             </div>
         </div>
 
-        <!-- create board form -->
-        <div class="card">
-            <div class="card-block">
 
-                <!-- form title -->
-                <h4 class="card-title">Create new board</h4>
-
-                <!-- form -->
-                <form (ngSubmit)="createBoard(); boardCreateForm.reset();" #boardCreateForm="ngForm" class="form">
-
-                    <!-- title -->
-                    <div class="form-group">
-                        <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
-                            Title is required
-                        </div>
-                        <input type="text" name="title" [(ngModel)]="newBoard.title" #title="ngModel" placeholder="title" required>
-                    </div>
-
-                    <!-- description -->
-                    <div class="form-group">
-                        <input type="text" name="description" [(ngModel)]="newBoard.description" #title="ngModel" placeholder="description">
-                    </div>
-
-                    <!-- submit -->
-                    <button type="submit" [disabled]="!boardCreateForm.form.valid" class="btn btn-success">Create</button>
-                </form>
-            </div>
-        </div>
     </div>
 </div>

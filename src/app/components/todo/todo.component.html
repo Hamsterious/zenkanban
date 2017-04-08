@@ -1,4 +1,5 @@
-<div class="todos">
+<div class="row col-12" id="todos">
+
     <!-- create todo form -->
     <form (ngSubmit)="createTodo(); todoCreateForm.reset();" #todoCreateForm="ngForm" class="form todo-create-form">
 
@@ -47,6 +48,7 @@
 
             <!-- update form - show for selected column -->
             <ng-template #showTodoEditForm>
+
                 <!-- form -->
                 <form (ngSubmit)="updateTodo()" #todoUpdateForm="ngForm" class="form todo-update-form">
 

@@ -12,3 +12,12 @@
     background: rgba(37, 159, 234, 1);
     border-radius: 50px;
 }
+
+button,
+li,
+h2,
+label,
+div,
+input {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
