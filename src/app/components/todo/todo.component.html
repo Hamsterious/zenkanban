@@ -1,4 +1,4 @@
-<!-- form -->
+<!-- create todo form -->
 <form (ngSubmit)="createTodo(); todoCreateForm.reset();" #todoCreateForm="ngForm" class="form todo-create-form">
 
     <!-- title -->
@@ -24,30 +24,41 @@
     <button type="button" (click)="undoDeleteTodo()" class="btn btn-info  mt-3 btn-sm btn-undo">Undo Delete</button>
 </ng-template>
 
+<!-- todos -->
 <div *ngIf="todos === undefined; else showTodos"></div>
 <ng-template #showTodos>
+
     <div class="card" *ngFor="let todo of todos">
 
-        <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showEditForm">
+        <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoEditForm">
 
             <!-- title -->
-            <p class="card-title">
+            <div class="card-title">
 
-                <label (click)="selectTodo(todo)" for="title">{{ todo.title }}</label>
+                <span (click)="selectTodo(todo)" for="todoTitle">Title: {{ todo.title }}</span>
+                <br>
+                <span>Details: {{ todo.details }}</span>
+
                 <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
-            </p>
+
+            </div>
         </div>
 
-        <!-- update form - show for selected cplumn -->
-        <ng-template #showColumnEditForm>
-
+        <!-- update form - show for selected column -->
+        <ng-template #showTodoEditForm>
             <!-- form -->
             <form (ngSubmit)="updateTodo()" #todoUpdateForm="ngForm" class="form todo-update-form">
 
                 <!-- title -->
                 <div class="form-group">
-                    <label for="title"></label>
-                    <input type="text" name="title" [(ngModel)]="selectedTodo.title" placeholder="title" id="title" required>
+                    <label for="todoTitle"></label>
+                    <input type="text" name="title" [(ngModel)]="selectedTodo.title" placeholder="title" id="todoTitle" required>
+                </div>
+
+                <!-- details -->
+                <div class="form-group">
+                    <label for="todoTitle"></label>
+                    <input type="text" name="details" [(ngModel)]="selectedTodo.details" placeholder="details" id="details">
                 </div>
 
                 <!-- submit -->
