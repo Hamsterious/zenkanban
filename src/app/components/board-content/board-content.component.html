@@ -38,7 +38,7 @@
             <!-- columns -->
             <div *ngIf="columns === undefined; else showColumns"></div>
             <ng-template #showColumns>
-                <div [dragula]='"bag-one"' [dragulaModel]='columns'>>
+                <div [dragula]='"bag-one"' [dragulaModel]='columns'>
 
                     <div class="card" *ngFor="let column of columns">
 
