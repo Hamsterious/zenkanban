@@ -29,7 +29,7 @@
     <div *ngIf="todos === undefined; else showTodos"></div>
     <ng-template #showTodos>
 
-        <div class="card mt-3" *ngFor="let todo of todos">
+        <div class="card card-outline-primary mt-3" *ngFor="let todo of todos">
 
             <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoEditForm">
 
