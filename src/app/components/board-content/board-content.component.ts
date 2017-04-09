@@ -2,17 +2,21 @@
 import { Component, OnInit } from '@angular/core';
 
 // Angular routing
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 // Rxjs imports
 import 'rxjs/add/operator/switchMap';
 
+// 3rd party imports
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
 // Custom type imports
-import { Board } from "app/models/board";
+import { Board } from 'app/models/board';
 import { Column } from '../../models/column';
 import { ColumnService } from '../../services/column/column.service';
-import { BoardService } from "app/services/board/board.service";
+import { BoardService } from 'app/services/board/board.service';
+import { DragulaConfig } from '../../dragula/dragula.config';
 
 // Component meta data
 @Component({
@@ -32,13 +36,15 @@ export class BoardContentComponent implements OnInit {
   private newColumn: Column;
   private selectedColumn: Column;
   private deletedColumns: Column[] = [];
+  private dragulaConfig: DragulaConfig;
 
   // Constructor
   constructor(
     private route: ActivatedRoute,
     private boardService: BoardService,
     private columnService: ColumnService,
-    private location: Location
+    private location: Location,
+    private dragulaService: DragulaService
   ) { }
 
   // Initializing
@@ -50,6 +56,7 @@ export class BoardContentComponent implements OnInit {
       order: 10000,
       boardId: this.boardId
     });
+    this.dragulaConfig = new DragulaConfig(this.dragulaService);
   }
 
   // Methods
