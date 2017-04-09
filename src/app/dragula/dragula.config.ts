@@ -26,7 +26,10 @@ export class DragulaConfig {
         });
     }
 
-    
+     ///////////////////////////////////
+    /// Below is kept for reference ///
+   ///////////////////////////////////
+
     // Event subscriber methods
     private subscribeToDragEvent(): void {
         this.dragulaService.drag.subscribe((value: any[]) => {
