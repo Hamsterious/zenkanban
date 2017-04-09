@@ -19,11 +19,11 @@
                     <textarea rows="5" cols="20" name="details" [(ngModel)]="newTodo.details" placeholder="Details" id="details"></textarea>
                 </div>
 
-                <!-- submit -->
-                <button type="submit" [disabled]="!todoCreateForm.form.valid" class="btn btn-success">Create</button>
-
                 <!-- cancel -->
                 <button type="submit" class="btn btn-info" (click)="setShowCreateForm(false);">Cancel</button>
+
+                <!-- submit -->
+                <button type="submit" [disabled]="!todoCreateForm.form.valid" class="btn btn-success">Create</button>
 
             </form>
         </div>
