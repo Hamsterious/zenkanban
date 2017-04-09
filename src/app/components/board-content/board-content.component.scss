@@ -21,7 +21,7 @@
         overflow-y: scroll;
     }
     .card-columns {
-        max-height: 40rem;
+        height: 40rem;
         overflow-x: scroll;
     }
     input {
@@ -55,6 +55,9 @@
             display: block;
             margin-left: 4rem;
         }
+    }
+    .column-bag {
+        border: 1px solid black;
     }
 }
 

@@ -38,12 +38,9 @@
             <!-- columns -->
             <div *ngIf="columns === undefined; else showColumns"></div>
             <ng-template #showColumns>
+                <div *ngFor="let column of columns">
 
-                <!-- column dragular bag -->
-                <div [dragula]='"column-bag"' class="column-bag">
-
-                    <div class="card" *ngFor="let column of columns">
-
+                    <div class="card">
                         <div *ngIf="selectedColumn === undefined || selectedColumn._id !== column._id; else showUpdateForm">
 
                             <!-- title -->
@@ -59,28 +56,28 @@
                             <todo [column]="column"></todo>
 
                         </div>
-
-                        <!-- update form -->
-                        <ng-template #showUpdateForm>
-
-                            <!-- form -->
-                            <form (ngSubmit)="updateColumn()" #columnUpdateForm="ngForm" class="form column-update-form">
-
-                                <!-- title -->
-                                <div class="form-group">
-                                    <label for="title"></label>
-                                    <input type="text" name="title" [(ngModel)]="selectedColumn.title" placeholder="title" id="title" required>
-                                </div>
-
-                                <!-- submit -->
-                                <button type="submit" [disabled]="!columnUpdateForm.form.valid" class="btn btn-success">Update</button>
-
-                            </form>
-
-                        </ng-template>
-
                     </div>
+
+                    <!-- update form -->
+                    <ng-template #showUpdateForm>
+
+                        <!-- form -->
+                        <form (ngSubmit)="updateColumn()" #columnUpdateForm="ngForm" class="form column-update-form">
+
+                            <!-- title -->
+                            <div class="form-group">
+                                <label for="title"></label>
+                                <input type="text" name="title" [(ngModel)]="selectedColumn.title" placeholder="title" id="title" required>
+                            </div>
+
+                            <!-- submit -->
+                            <button type="submit" [disabled]="!columnUpdateForm.form.valid" class="btn btn-success">Update</button>
+
+                        </form>
+                    </ng-template>
                 </div>
+
+
             </ng-template>
 
         </div>
