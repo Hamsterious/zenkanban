@@ -49,20 +49,20 @@
         <!-- todo dragular bag -->
         <div [dragula]='"todo-bag"' class="todo-bag">
 
-            <div class="card card-outline-primary mt-3" *ngFor="let todo of todos">
+            <div class="card card-outline-primary mt-3 todo-card-part" *ngFor="let todo of todos">
                 <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoUpdateForm">
 
-                    <div class="card-title">
+                    <div class="card-title todo-card-part">
 
                         <!-- title -->
-                        <h4 class="ml-2 mt-2">
+                        <h4 class="ml-2 mt-2 todo-card-part">
                             {{ todo.title }}
-                            <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteTodo(todo)"></i>
-                            <i class="fa fa-pencil text-info" aria-hidden="true" (click)="selectTodo(todo)"></i>
+                            <i class="fa fa-trash text-danger todo-card-part" aria-hidden="true" (click)="deleteTodo(todo)"></i>
+                            <i class="fa fa-pencil text-info todo-card-part" aria-hidden="true" (click)="selectTodo(todo)"></i>
                         </h4>
 
                         <!-- details -->
-                        <p class="ml-2 mt-2">{{ todo.details }}</p>
+                        <p class="ml-2 mt-2 todo-card-part">{{ todo.details }}</p>
 
                     </div>
                 </div>
