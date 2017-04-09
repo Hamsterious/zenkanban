@@ -40,7 +40,7 @@
             <ng-template #showColumns>
 
                 <!-- dragula column bag -->
-                <div [dragula]="'column-bag'">
+                <div [dragula]="'column-bag'" [dragulaModel]='columns'>
                     <div *ngFor="let column of columns">
 
                         <div class="card">
@@ -80,8 +80,6 @@
                         </ng-template>
                     </div>
                 </div>
-
-
             </ng-template>
 
         </div>

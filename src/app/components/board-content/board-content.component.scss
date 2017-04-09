@@ -15,12 +15,12 @@
         }
     }
     .card {
-        max-width: 20rem;
         height: 35rem;
         margin-bottom: 1rem;
         overflow-y: scroll;
     }
     .card-columns {
+        // Prevents extra columns to stack vertically.
         height: 40rem;
         overflow-x: scroll;
     }
@@ -55,9 +55,6 @@
             display: block;
             margin-left: 4rem;
         }
-    }
-    .column-bag {
-        border: 1px solid black;
     }
 }
 

@@ -47,7 +47,7 @@
     <ng-template #showTodos>
 
         <!-- todo dragular bag -->
-        <div [dragula]='"todo-bag"' class="todo-bag">
+        <div [dragula]='"todo-bag"' [dragulaModel]='todos' class="todo-bag">
 
             <div class="card card-outline-primary mt-3 todo-card-part" *ngFor="let todo of todos">
                 <div *ngIf="selectedTodo === undefined || selectedTodo._id !== todo._id; else showTodoUpdateForm">
@@ -93,7 +93,6 @@
 
             </div>
         </div>
-
     </ng-template>
 
 </div>
