@@ -38,43 +38,47 @@
             <!-- columns -->
             <div *ngIf="columns === undefined; else showColumns"></div>
             <ng-template #showColumns>
-                <div *ngFor="let column of columns">
 
-                    <div class="card">
-                        <div *ngIf="selectedColumn === undefined || selectedColumn._id !== column._id; else showUpdateForm">
+                <!-- dragula column bag -->
+                <div [dragula]="'column-bag'">
+                    <div *ngFor="let column of columns">
 
-                            <!-- title -->
-                            <h4 class="card-title">
-                                <label (click)="selectColumn(column)" for="title">{{ column.title }}</label>
+                        <div class="card">
+                            <div *ngIf="selectedColumn === undefined || selectedColumn._id !== column._id; else showUpdateForm">
 
-                                <!-- delete column button -->
-                                <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteColumn(column)"></i>
-                            </h4>
+                                <!-- title -->
+                                <h4 class="card-title">
+                                    <label (click)="selectColumn(column)" for="title">{{ column.title }}</label>
+
+                                    <!-- delete column button -->
+                                    <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteColumn(column)"></i>
+                                </h4>
 
 
-                            <!-- todos -->
-                            <todo [column]="column"></todo>
+                                <!-- todos -->
+                                <todo [column]="column"></todo>
 
-                        </div>
-                    </div>
-
-                    <!-- update form -->
-                    <ng-template #showUpdateForm>
-
-                        <!-- form -->
-                        <form (ngSubmit)="updateColumn()" #columnUpdateForm="ngForm" class="form column-update-form">
-
-                            <!-- title -->
-                            <div class="form-group">
-                                <label for="title"></label>
-                                <input type="text" name="title" [(ngModel)]="selectedColumn.title" placeholder="title" id="title" required>
                             </div>
+                        </div>
 
-                            <!-- submit -->
-                            <button type="submit" [disabled]="!columnUpdateForm.form.valid" class="btn btn-success">Update</button>
+                        <!-- update form -->
+                        <ng-template #showUpdateForm>
 
-                        </form>
-                    </ng-template>
+                            <!-- form -->
+                            <form (ngSubmit)="updateColumn()" #columnUpdateForm="ngForm" class="form column-update-form">
+
+                                <!-- title -->
+                                <div class="form-group">
+                                    <label for="title"></label>
+                                    <input type="text" name="title" [(ngModel)]="selectedColumn.title" placeholder="title" id="title" required>
+                                </div>
+
+                                <!-- submit -->
+                                <button type="submit" [disabled]="!columnUpdateForm.form.valid" class="btn btn-success">Update</button>
+
+                            </form>
+                        </ng-template>
+                    </div>
                 </div>
 
 
