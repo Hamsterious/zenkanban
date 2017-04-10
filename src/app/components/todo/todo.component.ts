@@ -39,6 +39,7 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.getTodosByColumnId();
     this.newTodo = new Todo({
+      order: 0,
       columnId: this.column._id
     });
   }
@@ -67,7 +68,7 @@ export class TodoComponent implements OnInit {
   }
 
   private sortTodosByOrder(todos: Todo[]): Todo[] {
-    
+
     // Smallest order will have lowest index
     // order[0] = 100
     // order[1] = 200
