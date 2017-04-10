@@ -13,7 +13,7 @@ export class DragulaConfig {
         private todoService: TodoService
     ) {
         this.disableColumnBagDragOnTodoDrag();
-        this.subscribeToUpdateTodoOnDrop();
+        this.updateTodosOnDrop();
     }
 
     // Option setter methods
@@ -27,31 +27,51 @@ export class DragulaConfig {
     }
 
     // Event subscriber methods
-    private subscribeToUpdateTodoOnDrop(): void {
+    private updateTodosOnDrop(): void {
         this.dragulaService.drop.subscribe((value) => {
             // Put drop values into own variables
             let [draggedElement, targetBag, originalBag, sibling] = value.slice(1);
 
-            // Assign index
-            let tempArray = Array.from(targetBag.children);
-            let siblingIndex = tempArray.indexOf(sibling);
-            tempArray.splice(siblingIndex, 0, draggedElement);
-            tempArray.indexOf(draggedElement);
-
             // Extract ids
             let todoId = draggedElement.dataset.todoid;
             let columnId = targetBag.dataset.columnid;
+            let tempArray: any = Array.from(targetBag.children);
+            let siblingIndex = tempArray.indexOf(sibling);
+
+            // We do not want to splice in the dragged element if it is dropped in the bag it was dragged from. Otherwise we end up copying it!
+            if (!this.containsObject(draggedElement, tempArray)) {
+                // Prevents the order to fuck when items are attached at the end of a new column, and would have been assigned -1.
+                if(siblingIndex === -1) siblingIndex = tempArray.length;
+                tempArray.splice(siblingIndex, 0, draggedElement);
+            }
+                
 
             // Get the todo to update, set is columnId to the new one, and update the db with changes.
-            this.todoService.get(todoId).subscribe(
-                x => {
-                    x.columnId = columnId;
-                    this.todoService.update(x).subscribe(x => x, error => error = <any>error);
-                },
-                error => error = <any>error
-            );
+            for (let item of tempArray) {
+                let todoId = item.dataset.todoid;
+                let todoOrder = tempArray.indexOf(item);
+                this.todoService.get(todoId).subscribe(
+                    x => {
+                        x.order = todoOrder;
+                        x.columnId = columnId;
+                        this.todoService.update(x).subscribe(x => x, error => error = <any>error);
+                    },
+                    error => error = <any>error
+                );
+            }
         });
     }
+
+    private containsObject(obj, list): boolean {
+        var i;
+        for (i = 0; i < list.length; i++) {
+            if (list[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     ///////////////////////////////////
     /// Below is kept for reference ///
