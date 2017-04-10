@@ -29,35 +29,67 @@ export class DragulaConfig {
     // Event subscriber methods
     private updateTodosOnDrop(): void {
         this.dragulaService.drop.subscribe((value) => {
+
             // Put drop values into own variables
-            let [draggedElement, targetBag, originalBag, sibling] = value.slice(1);
+            let [bagName, draggedElement, targetBag, originalBag, sibling] = value.slice(0);
 
-            // Extract ids
-            let todoId = draggedElement.dataset.todoid;
-            let columnId = targetBag.dataset.columnid;
-            let tempArray: any = Array.from(targetBag.children);
-            let siblingIndex = tempArray.indexOf(sibling);
+            // Update todos if the bag being dropped into is a todo-bag
+            if (bagName === "todo-bag") {
 
-            // We do not want to splice in the dragged element if it is dropped in the bag it was dragged from. Otherwise we end up copying it!
-            if (!this.containsObject(draggedElement, tempArray)) {
-                // Prevents the order to fuck when items are attached at the end of a new column, and would have been assigned -1.
-                if(siblingIndex === -1) siblingIndex = tempArray.length;
-                tempArray.splice(siblingIndex, 0, draggedElement);
-            }
+                // Create a temporary array from the target bag children
+                // This is done so we can count the indexes of the array, and from that create an sort order.
+                let tempArray: any = Array.from(targetBag.children);
+
+                // We need the sibling index of the targetBag where the draggedElement was dropped into, so we can splice in the dragged element on its place.
+                let siblingIndex = tempArray.indexOf(sibling);
+
+                // We do not want to splice in the dragged element if it is dropped into the same bag it was dragged from. Otherwise we end up copying it!
+                var sameBag = this.containsObject(draggedElement, tempArray);
+                if (!sameBag) {
+
+                    // Prevents the order to fuck when items are attached at the end of a new column, and would have been assigned -1, since there is no sibling at the end of the column.
+                    if (siblingIndex === -1) siblingIndex = tempArray.length;
+                    
+                    // Splice in the dragged element at its siblings place.
+                    tempArray.splice(siblingIndex, 0, draggedElement);
+
+                }
+
+                // Just a var to see how many http requests are made when dragging a todo.
+                let numberOfHttpRequests: number = 0;
+
+                // We extract the column id from the targetBag, so that if the todo has changed column, we can persist its new relationship.
+                let columnId = targetBag.dataset.columnid;
                 
+                // Time to update the todos!
+                for (let item of tempArray) {
 
-            // Get the todo to update, set is columnId to the new one, and update the db with changes.
-            for (let item of tempArray) {
-                let todoId = item.dataset.todoid;
-                let todoOrder = tempArray.indexOf(item);
-                this.todoService.get(todoId).subscribe(
-                    x => {
-                        x.order = todoOrder;
-                        x.columnId = columnId;
-                        this.todoService.update(x).subscribe(x => x, error => error = <any>error);
-                    },
-                    error => error = <any>error
-                );
+                    // Get the id of the todo we want to work on
+                    let todoId = item.dataset.todoid;
+
+                    // Get its order e.g. its index in the temp array
+                    let todoOrder = tempArray.indexOf(item);
+
+                    // Get the todo
+                    this.todoService.get(todoId).subscribe(
+                        x => {
+
+                            // Set its update values
+                            x.order = todoOrder;
+                            x.columnId = columnId;
+                            
+                            // Update the todo
+                            this.todoService.update(x).subscribe(x => x, error => error = <any>error);
+                        },
+                        error => error = <any>error
+                    );
+                    
+                    // We made a get and post request, so we add two to the counter.
+                    numberOfHttpRequests += 2;
+                }
+
+                // Log to see how many http requests it took to update the who shebang.
+                console.log(numberOfHttpRequests);
             }
         });
     }
