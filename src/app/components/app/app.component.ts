@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
 
 // Exports
 export class AppComponent {
-  title = 'Zen Kanban - Slower, but happier';
+  title = 'Zen Kanban';
+  subtitle = 'Slower, but happier';
 
   constructor(){
   }
