@@ -29,11 +29,11 @@ export class DragulaConfig {
     private subscribeToUpdateTodoOnDrop(): void {
         this.dragulaService.drop.subscribe((value) => {
             // Put drop values into own variables
-            let [draggedElement, tagertBag] = value.slice(1);
+            let [draggedElement, targetBag] = value.slice(1);
 
             // Extract ids
             let todoId = draggedElement.dataset.todoid;
-            let columnId = tagertBag.dataset.columnid;
+            let columnId = targetBag.dataset.columnid;
 
             // Get the todo to update, set is columnId to the new one, and update the db with changes.
             this.todoService.get(todoId).subscribe(
