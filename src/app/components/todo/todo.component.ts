@@ -61,9 +61,21 @@ export class TodoComponent implements OnInit {
 
   private getTodosByColumnId(): void {
     this.todoService.getAllByColumnId(this.column._id).subscribe(
-      x => this.todos = x,
+      x => this.todos = this.sortTodosByOrder(x),
       error => error = <any>error
     );
+  }
+
+  private sortTodosByOrder(todos: Todo[]): Todo[] {
+    
+    // Smallest order will have lowest index
+    // order[0] = 100
+    // order[1] = 200
+    todos.sort((a, b) => {
+      return a.order - b.order;
+    });
+
+    return todos;
   }
 
   private createTodo(): void {
