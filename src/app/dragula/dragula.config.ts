@@ -1,28 +1,48 @@
 // 3rd party imports
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+// Custom type imports
+import { TodoService } from '../services/todo/todo.service';
+
 // Class
 export class DragulaConfig {
 
     // Constructor
     constructor(
-        private dragulaService: DragulaService
+        private dragulaService: DragulaService,
+        private todoService: TodoService
     ) {
         this.disableColumnBagDragOnTodoDrag();
+        this.subscribeToUpdateTodoOnDrop();
     }
 
     // Option setter methods
     private disableColumnBagDragOnTodoDrag(): void {
         this.dragulaService.setOptions('column-bag', {
             moves: (el, source, handle, sibling) => {
-                // el === The column card
-                // source === The column bag
-                // handle === Clicked dom element starting the drag
-                // sibling === The element "below" the one being dragged.
-
                 // Set column-bag moves option to false if the handle contains a todo-card-part class.
                 return !handle.classList.contains('todo-card-part');;
             }
+        });
+    }
+
+    private subscribeToUpdateTodoOnDrop(): void {
+        this.dragulaService.drop.subscribe((value) => {
+            // Put drop values into own variables
+            let [draggedElement, tagertBag] = value.slice(1);
+
+            // Extract ids
+            let todoId = draggedElement.dataset.todoid;
+            let columnId = tagertBag.dataset.columnid;
+
+            // Get the todo to update, set is columnId to the new one, and update the db with changes.
+            this.todoService.get(todoId).subscribe(
+                x => {
+                    x.columnId = columnId;
+                    this.todoService.update(x).subscribe(x => x, error => error = <any>error);
+                },
+                error => error = <any>error
+            );
         });
     }
 
@@ -61,7 +81,6 @@ export class DragulaConfig {
 
     // Activated dom element logger methods.
     private onDrag(args: any[]) {
-        // E represents the name of the bag (class name), EL represents the actual dom element
         let [e, el] = args;
         console.log(e);
         console.log(el);
@@ -75,21 +94,15 @@ export class DragulaConfig {
 
     private onOver(args) {
         let [e, el, container] = args;
-        console.log("e");
         console.log(e);
-        console.log("el");
         console.log(el);
-        console.log("container");
         console.log(container);
     }
 
     private onOut(args) {
         let [e, el, container] = args;
-        console.log("e");
         console.log(e);
-        console.log("el");
         console.log(el);
-        console.log("container");
         console.log(container);
     }
 }

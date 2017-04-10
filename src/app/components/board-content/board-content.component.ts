@@ -15,6 +15,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Board } from 'app/models/board';
 import { Column } from '../../models/column';
 import { ColumnService } from '../../services/column/column.service';
+import { TodoService } from '../../services/todo/todo.service';
 import { BoardService } from 'app/services/board/board.service';
 import { DragulaConfig } from '../../dragula/dragula.config';
 
@@ -23,7 +24,7 @@ import { DragulaConfig } from '../../dragula/dragula.config';
   selector: 'board-content',
   templateUrl: './board-content.component.html',
   styleUrls: ['./board-content.component.scss'],
-  providers: [BoardService, ColumnService]
+  providers: [BoardService, ColumnService, TodoService]
 })
 
 // Component
@@ -43,6 +44,7 @@ export class BoardContentComponent implements OnInit {
     private route: ActivatedRoute,
     private boardService: BoardService,
     private columnService: ColumnService,
+    private todoService: TodoService,
     private location: Location,
     private dragulaService: DragulaService
   ) { }
@@ -56,7 +58,9 @@ export class BoardContentComponent implements OnInit {
       order: 10000,
       boardId: this.boardId
     });
-    this.dragulaConfig = new DragulaConfig(this.dragulaService);
+    this.dragulaConfig = new DragulaConfig(
+      this.dragulaService, this.todoService
+    );
   }
 
   // Finilizing
