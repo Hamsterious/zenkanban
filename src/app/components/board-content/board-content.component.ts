@@ -54,14 +54,14 @@ export class BoardContentComponent implements OnInit {
     this.getBoardIdFromRoute();
     this.getBoard();
     this.getColumnsByBoardId();
-    this.newColumn = new Column({
-      boardId: this.boardId
-    });
     this.dragulaConfig = new DragulaConfig(
       this.dragulaService,
       this.todoService,
       this.columnService
     );
+    this.newColumn = new Column({
+      boardId: this.boardId
+    });
   }
 
   // Finilizing
@@ -70,7 +70,7 @@ export class BoardContentComponent implements OnInit {
   }
 
   // Methods
-  private sortTodosByOrder(columns: Column[]): Column[] {
+  private sortColumnsByOrder(columns: Column[]): Column[] {
     // Smallest order will have lowest index
     // order[0] = 100
     // order[1] = 200
@@ -101,7 +101,7 @@ export class BoardContentComponent implements OnInit {
 
   private getColumnsByBoardId(): void {
     this.columnService.getAllByBoardId(this.boardId).subscribe(
-      x => this.columns = this.sortTodosByOrder(x),
+      x => this.columns = this.sortColumnsByOrder(x),
       error => error = <any>error
     );
   }

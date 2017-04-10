@@ -78,6 +78,10 @@ export class TodoComponent implements OnInit {
   }
 
   private createTodo(): void {
+    // Give the new today the last sort order.
+    if(this.todos.length !== 0)
+      this.newTodo.order = this.todos[this.todos.length - 1].order + 1;
+
     this.todoService.create(this.newTodo).subscribe(
       x => {
         this.todos.push(x);
