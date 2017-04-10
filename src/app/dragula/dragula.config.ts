@@ -20,12 +20,13 @@ export class DragulaConfig {
     private disableColumnBagDragOnTodoDrag(): void {
         this.dragulaService.setOptions('column-bag', {
             moves: (el, source, handle, sibling) => {
-                // Set column-bag moves option to false if the handle contains a todo-card-part class.
+                // Set column-bag moves option to false if handle contains a todo-card-part class. Prevents column from being dragged when we try to drag a todo.
                 return !handle.classList.contains('todo-card-part');;
             }
         });
     }
 
+    // Event subscriber methods
     private subscribeToUpdateTodoOnDrop(): void {
         this.dragulaService.drop.subscribe((value) => {
             // Put drop values into own variables

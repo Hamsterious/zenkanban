@@ -55,7 +55,6 @@ export class BoardContentComponent implements OnInit {
     this.getBoard();
     this.getColumnsByBoardId();
     this.newColumn = new Column({
-      order: 10000,
       boardId: this.boardId
     });
     this.dragulaConfig = new DragulaConfig(
@@ -99,7 +98,6 @@ export class BoardContentComponent implements OnInit {
       x => {
         this.columns.push(x);
         this.newColumn = new Column({
-          order: 10000,
           boardId: this.boardId
         });
       },

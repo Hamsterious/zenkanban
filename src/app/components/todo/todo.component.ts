@@ -39,7 +39,6 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.getTodosByColumnId();
     this.newTodo = new Todo({
-      order: 10000,
       columnId: this.column._id
     });
   }
@@ -72,7 +71,6 @@ export class TodoComponent implements OnInit {
       x => {
         this.todos.push(x);
         this.newTodo = new Todo({
-          order: 10000,
           columnId: this.column._id
         });
       },
