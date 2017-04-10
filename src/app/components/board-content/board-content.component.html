@@ -41,9 +41,10 @@
 
                 <!-- dragula column bag -->
                 <div [dragula]="'column-bag'" [dragulaModel]='columns'>
-                    <div *ngFor="let column of columns">
+                    <div *ngFor="let column of columns" [attr.data-columnid]=column._id>
 
                         <div class="card">
+
                             <div *ngIf="selectedColumn === undefined || selectedColumn._id !== column._id; else showUpdateForm">
 
                                 <!-- title -->

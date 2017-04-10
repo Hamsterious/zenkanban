@@ -58,7 +58,9 @@ export class BoardContentComponent implements OnInit {
       boardId: this.boardId
     });
     this.dragulaConfig = new DragulaConfig(
-      this.dragulaService, this.todoService
+      this.dragulaService,
+      this.todoService,
+      this.columnService
     );
   }
 
@@ -68,9 +70,20 @@ export class BoardContentComponent implements OnInit {
   }
 
   // Methods
+  private sortTodosByOrder(columns: Column[]): Column[] {
+    // Smallest order will have lowest index
+    // order[0] = 100
+    // order[1] = 200
+    columns.sort((a, b) => {
+      return a.order - b.order;
+    });
+    return columns;
+  }
+
   private backClicked(): void {
     this.location.back();
   }
+
   private selectColumn(column: Column): void {
     this.selectedColumn = column;
   }
@@ -88,7 +101,7 @@ export class BoardContentComponent implements OnInit {
 
   private getColumnsByBoardId(): void {
     this.columnService.getAllByBoardId(this.boardId).subscribe(
-      x => this.columns = x,
+      x => this.columns = this.sortTodosByOrder(x),
       error => error = <any>error
     );
   }

@@ -3,6 +3,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 // Custom type imports
 import { TodoService } from '../services/todo/todo.service';
+import {ColumnService} from '../services/column/column.service';
 
 // Class
 export class DragulaConfig {
@@ -10,10 +11,12 @@ export class DragulaConfig {
     // Constructor
     constructor(
         private dragulaService: DragulaService,
-        private todoService: TodoService
+        private todoService: TodoService,
+        private columnService: ColumnService
     ) {
         this.disableColumnBagDragOnTodoDrag();
         this.updateTodosOnDrop();
+        this.updateColumnsOnDrop();
     }
 
     // Option setter methods
@@ -90,6 +93,44 @@ export class DragulaConfig {
 
                 // Log to see how many http requests it took to update the who shebang.
                 console.log(numberOfHttpRequests);
+            }
+        });
+    }
+
+    private updateColumnsOnDrop(): void {
+        this.dragulaService.drop.subscribe((value) => {
+
+            // Put drop values into own variables
+            let [bagName, draggedElement, targetBag, originalBag, sibling] = value.slice(0);
+
+            // Update columns if the bag being dropped into is a column-bag
+            if (bagName === "column-bag") {
+
+                // Create a temporary array from the target bag children
+                // This is done so we can count the indexes of the array, and from that create an sort order.
+                let tempArray: any = Array.from(draggedElement.parentNode.children);
+
+                // Update the columns
+                for (let item of tempArray) {
+
+                    let columnId = item.dataset.columnid;
+
+                    // Get its order e.g. its index in the temp array
+                    let columnOrder = tempArray.indexOf(item);
+
+                    // Get the column
+                    this.columnService.get(columnId).subscribe(
+                        x => {
+
+                            // Set its update values
+                            x.order = columnOrder;
+                            
+                            // Update the column
+                            this.columnService.update(x).subscribe(x => x, error => error = <any>error);
+                        },
+                        error => error = <any>error
+                    );
+                }
             }
         });
     }
