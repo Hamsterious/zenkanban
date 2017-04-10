@@ -59,6 +59,11 @@ export class BoardContentComponent implements OnInit {
     this.dragulaConfig = new DragulaConfig(this.dragulaService);
   }
 
+  // Finilizing
+  ngOnDestroy() {
+    this.dragulaService.destroy("column-bag");
+  }
+
   // Methods
   private backClicked(): void {
     this.location.back();
